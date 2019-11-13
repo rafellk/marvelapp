@@ -15,11 +15,26 @@ class CharactersViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureNavigationItem()
+        populateCollectionView()
     }
     
     private func configureNavigationItem() {
         // TODO: localize this
         navigationItem.title = "Characters"
         navigationController?.navigationBar.prefersLargeTitles = true
+    }
+    
+    private func populateCollectionView() {
+        collectionView.datasource = [
+            CharactersCollectionViewCellModel(characterImageURL: "testing",
+                                              characterName: "Spider Man",
+                                              isFavorite: false),
+            CharactersCollectionViewCellModel(characterImageURL: "testing",
+                                              characterName: "Spider Man",
+                                              isFavorite: false),
+            CharactersCollectionViewCellModel(characterImageURL: "testing",
+                                              characterName: "Spider Man",
+                                              isFavorite: false),
+        ]
     }
 }

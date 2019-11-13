@@ -11,6 +11,13 @@ import UIKit
 class CharactersCollectionView: UICollectionView {
     
     let defaultLateralPadding: CGFloat = 8.0
+    var datasource: [CharactersCollectionViewCellModel]? {
+        didSet {
+            DispatchQueue.main.async { [weak self] in
+                self?.reloadData()
+            }
+        }
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -41,10 +48,21 @@ class CharactersCollectionView: UICollectionView {
 extension CharactersCollectionView: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return datasource?.count ?? 0
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        return collectionView.dequeueReusableCell(withReuseIdentifier: "CharactersCollectionViewCellID", for: indexPath)
+    func collectionView(_ collectionView: UICollectionView,
+                        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CharactersCollectionViewCellID",
+                                                            for: indexPath) as? CharactersCollectionViewCell
+        guard let unwrappedCell = cell else {
+            assert(false, "Dequeued a table view cell that is not subclass of CharactersCollectionViewCell")
+        }
+        
+        if let model = datasource?[indexPath.row] {
+            unwrappedCell.model = model
+        }
+        
+        return unwrappedCell
     }
 }

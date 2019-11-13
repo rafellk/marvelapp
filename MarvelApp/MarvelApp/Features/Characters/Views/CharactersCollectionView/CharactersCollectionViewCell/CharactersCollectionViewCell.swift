@@ -26,7 +26,7 @@ class CharactersCollectionViewCell: UICollectionViewCell {
     /**
      Model variables
      */
-    private var model: CharactersCollectionViewCellModel? {
+    var model: CharactersCollectionViewCellModel? {
         didSet {
             if model != nil {
                 updateUI()
