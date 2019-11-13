@@ -14,6 +14,7 @@
 		4378928D237B98D6008CCCA8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4378928B237B98D6008CCCA8 /* LaunchScreen.storyboard */; };
 		43789298237B98D6008CCCA8 /* MarvelAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43789297237B98D6008CCCA8 /* MarvelAppTests.swift */; };
 		437892A3237B98D6008CCCA8 /* MarvelAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 437892A2237B98D6008CCCA8 /* MarvelAppUITests.swift */; };
+		437892B2237B9A25008CCCA8 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 437892B1237B9A25008CCCA8 /* Router.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +48,7 @@
 		4378929E237B98D6008CCCA8 /* MarvelAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MarvelAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		437892A2237B98D6008CCCA8 /* MarvelAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarvelAppUITests.swift; sourceTree = "<group>"; };
 		437892A4237B98D6008CCCA8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		437892B1237B9A25008CCCA8 /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +99,7 @@
 		4378927F237B98D4008CCCA8 /* MarvelApp */ = {
 			isa = PBXGroup;
 			children = (
+				437892B0237B9A1A008CCCA8 /* Router */,
 				43789280237B98D4008CCCA8 /* AppDelegate.swift */,
 				43789282237B98D5008CCCA8 /* SceneDelegate.swift */,
 				43789286237B98D5008CCCA8 /* Main.storyboard */,
@@ -123,6 +126,14 @@
 				437892A4237B98D6008CCCA8 /* Info.plist */,
 			);
 			path = MarvelAppUITests;
+			sourceTree = "<group>";
+		};
+		437892B0237B9A1A008CCCA8 /* Router */ = {
+			isa = PBXGroup;
+			children = (
+				437892B1237B9A25008CCCA8 /* Router.swift */,
+			);
+			path = Router;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -258,6 +269,7 @@
 			files = (
 				43789281237B98D4008CCCA8 /* AppDelegate.swift in Sources */,
 				43789283237B98D5008CCCA8 /* SceneDelegate.swift in Sources */,
+				437892B2237B9A25008CCCA8 /* Router.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
