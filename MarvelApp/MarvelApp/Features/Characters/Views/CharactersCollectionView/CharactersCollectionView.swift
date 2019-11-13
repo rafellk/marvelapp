@@ -22,7 +22,6 @@ class CharactersCollectionView: UICollectionView {
     override func awakeFromNib() {
         super.awakeFromNib()
         register(cellWithNibName: "CharactersCollectionViewCell")
-        delegate = self
         dataSource = self
         configureFlowLayout()
     }
@@ -45,7 +44,7 @@ class CharactersCollectionView: UICollectionView {
     }
 }
 
-extension CharactersCollectionView: UICollectionViewDelegate, UICollectionViewDataSource {
+extension CharactersCollectionView: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return datasource?.count ?? 0
