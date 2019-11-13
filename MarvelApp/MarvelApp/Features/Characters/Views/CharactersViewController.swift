@@ -27,14 +27,14 @@ class CharactersViewController: UIViewController {
     private func populateCollectionView() {
         collectionView.datasource = [
             CharactersCollectionViewCellModel(characterImageURL: "testing",
-                                              characterName: "Spider Man",
+                                              characterName: "Capitain America",
                                               isFavorite: false),
             CharactersCollectionViewCellModel(characterImageURL: "testing",
-                                              characterName: "Spider Man",
+                                              characterName: "Iron Man",
                                               isFavorite: false),
             CharactersCollectionViewCellModel(characterImageURL: "testing",
-                                              characterName: "Spider Man",
-                                              isFavorite: false),
+                                              characterName: "Spider Foca",
+                                              isFavorite: true),
         ]
     }
 }

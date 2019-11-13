@@ -36,12 +36,17 @@ class CharactersCollectionViewCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        configureBorder()
+    }
+    
+    private func configureBorder() {
         layer.cornerRadius = 10
         layer.borderWidth = 0.5
         layer.borderColor = UIColor.gray.cgColor
     }
     
     private func updateUI() {
-        // TODO: update UI here
+        characterNameLabel.text = model?.characterName
+        chracterFavoriteImageView.image = (model != nil && model!.isFavorite) ? UIImage(systemName: "star.fill") : UIImage(systemName: "star")
     }
 }
