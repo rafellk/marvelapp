@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="y88-OS-PRB">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="esv-ND-966">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15508"/>
@@ -7,22 +7,63 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Characters-->
+        <!--Characters View Controller-->
         <scene sceneID="19U-U1-12o">
             <objects>
-                <viewController id="y88-OS-PRB" sceneMemberID="viewController">
+                <viewController id="y88-OS-PRB" customClass="CharactersViewController" customModule="MarvelApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="7AM-dM-LIo">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="IYp-uu-eLW" customClass="CharactersCollectionView" customModule="MarvelApp" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="3m5-u4-9kS">
+                                    <size key="itemSize" width="50" height="50"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells/>
+                            </collectionView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="2Np-g0-jLw" firstAttribute="bottom" secondItem="IYp-uu-eLW" secondAttribute="bottom" id="9Jt-Il-6Uo"/>
+                            <constraint firstItem="IYp-uu-eLW" firstAttribute="leading" secondItem="2Np-g0-jLw" secondAttribute="leading" id="FGj-tc-6ZQ"/>
+                            <constraint firstItem="IYp-uu-eLW" firstAttribute="top" secondItem="2Np-g0-jLw" secondAttribute="top" id="HNf-U9-0Iz"/>
+                            <constraint firstItem="2Np-g0-jLw" firstAttribute="trailing" secondItem="IYp-uu-eLW" secondAttribute="trailing" id="akR-cn-fGa"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="2Np-g0-jLw"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Characters" image="person.3" catalog="system" selectedImage="person.3.fill" id="07d-sy-n90"/>
+                    <navigationItem key="navigationItem" id="7cy-pq-T9C"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="collectionView" destination="IYp-uu-eLW" id="Ttp-yS-VVV"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9Js-uV-VQR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="132" y="139"/>
+            <point key="canvasLocation" x="1042.0289855072465" y="138.61607142857142"/>
+        </scene>
+        <!--Characters-->
+        <scene sceneID="dzH-sT-l3M">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="esv-ND-966" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Characters" image="person.3" catalog="system" selectedImage="person.3.fill" id="07d-sy-n90"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="lsE-bp-oV4">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="y88-OS-PRB" kind="relationship" relationship="rootViewController" id="nNR-zQ-yqI"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="W7G-4u-9wT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="131.8840579710145" y="138.61607142857142"/>
         </scene>
     </scenes>
     <resources>
