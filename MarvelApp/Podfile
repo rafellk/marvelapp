@@ -9,6 +9,7 @@ target 'MarvelApp' do
 
   target 'MarvelAppTests' do
     inherit! :search_paths
+    pod 'Alamofire', '~> 5.0.0-rc.3'
   end
 
   target 'MarvelAppUITests' do
