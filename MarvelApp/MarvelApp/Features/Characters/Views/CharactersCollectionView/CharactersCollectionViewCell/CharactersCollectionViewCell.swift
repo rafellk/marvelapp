@@ -8,7 +8,7 @@
 
 import UIKit
 
-struct CharactersCollectionViewCellModel {
+struct CharactersCollectionViewModel {
     var characterImageURL: String
     var characterName: String
     var isFavorite: Bool
@@ -26,7 +26,7 @@ class CharactersCollectionViewCell: UICollectionViewCell {
     /**
      Model variables
      */
-    var model: CharactersCollectionViewCellModel? {
+    var model: CharactersCollectionViewModel? {
         didSet {
             if model != nil {
                 updateUI()

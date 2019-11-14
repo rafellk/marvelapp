@@ -8,10 +8,17 @@
 
 import UIKit
 
+protocol CharactersCollectionViewDelegate: NSObjectProtocol {
+    func didPullRefresh()
+}
+
 class CharactersCollectionView: UICollectionView {
     
     let defaultLateralPadding: CGFloat = 8.0
-    var datasource: [CharactersCollectionViewCellModel]? {
+    var datasource: [CharactersCollectionViewModel]? {
+        willSet {
+            endRefreshing()
+        }
         didSet {
             DispatchQueue.main.async { [weak self] in
                 self?.reloadData()
@@ -19,10 +26,13 @@ class CharactersCollectionView: UICollectionView {
         }
     }
     
+    weak var charactersCollectionViewDelegate: CharactersCollectionViewDelegate?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-        register(cellWithNibName: "CharactersCollectionViewCell")
         dataSource = self
+        register(cellWithNibName: "CharactersCollectionViewCell")
+        configureRefreshControl()
         configureFlowLayout()
     }
     
@@ -44,6 +54,7 @@ class CharactersCollectionView: UICollectionView {
     }
 }
 
+// UICollectionViewDataSource extension
 extension CharactersCollectionView: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -63,5 +74,23 @@ extension CharactersCollectionView: UICollectionViewDataSource {
         }
         
         return unwrappedCell
+    }
+}
+
+// Refresh control methods
+extension CharactersCollectionView {
+    
+    fileprivate func configureRefreshControl() {
+        refreshControl = UIRefreshControl()
+        refreshControl?.addTarget(self, action: #selector(refresh), for: UIControl.Event.valueChanged)
+    }
+    
+    @objc
+    private func refresh() {
+        charactersCollectionViewDelegate?.didPullRefresh()
+    }
+    
+    fileprivate func endRefreshing() {
+        refreshControl?.endRefreshing()
     }
 }
