@@ -16,14 +16,33 @@ class CharactersViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureNavigationItem()
+        
         setupCollectionView()
-        viewModel.fetchCharacters()
+        configureViewModel()
+        
+        fetchData()
     }
     
     private func configureNavigationItem() {
         // TODO: localize this
         navigationItem.title = "Characters"
         navigationController?.navigationBar.prefersLargeTitles = true
+    }
+}
+
+// View Model methods
+extension CharactersViewController {
+    
+    fileprivate func configureViewModel() {
+        let _ = viewModel.datasourceObservable.subscribe { [weak self] (event) in
+            // todo: handle error here
+            guard let datasource = event.element else { return }
+            self?.update(datasouce: datasource)
+        }
+    }
+    
+    fileprivate func fetchData() {
+        viewModel.fetchCharacters()
     }
 }
 
@@ -35,22 +54,9 @@ extension CharactersViewController {
         collectionView.charactersCollectionViewDelegate = self
     }
     
-    fileprivate func fetchData() {
-        viewModel.fetchCharacters()
-
-//        collectionView.datasource = [
-//            CharactersCollectionViewModel(characterImageURL: "testing",
-//                                              characterName: "Capitain America",
-//                                              isFavorite: false),
-//            CharactersCollectionViewModel(characterImageURL: "testing",
-//                                              characterName: "Iron Man",
-//                                              isFavorite: false),
-//            CharactersCollectionViewModel(characterImageURL: "testing",
-//                                              characterName: "Spider Foca",
-//                                              isFavorite: true),
-//        ]
+    fileprivate func update(datasouce: [CharactersCollectionViewModel]) {
+        collectionView.datasource = datasouce
     }
-
 }
 
 extension CharactersViewController: CharactersCollectionViewDelegate {
