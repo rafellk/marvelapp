@@ -6,10 +6,10 @@ target 'MarvelApp' do
   use_frameworks!
 
   # Pods for MarvelApp
+  pod 'Alamofire', '~> 4.9'
 
   target 'MarvelAppTests' do
     inherit! :search_paths
-    pod 'Alamofire', '~> 5.0.0-rc.3'
   end
 
   target 'MarvelAppUITests' do

@@ -11,12 +11,13 @@ import UIKit
 class CharactersViewController: UIViewController {
     
     @IBOutlet weak var collectionView: CharactersCollectionView!
+    var viewModel = CharactersViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureNavigationItem()
         setupCollectionView()
-        populateCollectionView()
+        viewModel.fetchCharacters()
     }
     
     private func configureNavigationItem() {
@@ -34,26 +35,27 @@ extension CharactersViewController {
         collectionView.charactersCollectionViewDelegate = self
     }
     
-    fileprivate func populateCollectionView() {
-        collectionView.datasource = [
-            CharactersCollectionViewModel(characterImageURL: "testing",
-                                              characterName: "Capitain America",
-                                              isFavorite: false),
-            CharactersCollectionViewModel(characterImageURL: "testing",
-                                              characterName: "Iron Man",
-                                              isFavorite: false),
-            CharactersCollectionViewModel(characterImageURL: "testing",
-                                              characterName: "Spider Foca",
-                                              isFavorite: true),
-        ]
+    fileprivate func fetchData() {
+        viewModel.fetchCharacters()
+
+//        collectionView.datasource = [
+//            CharactersCollectionViewModel(characterImageURL: "testing",
+//                                              characterName: "Capitain America",
+//                                              isFavorite: false),
+//            CharactersCollectionViewModel(characterImageURL: "testing",
+//                                              characterName: "Iron Man",
+//                                              isFavorite: false),
+//            CharactersCollectionViewModel(characterImageURL: "testing",
+//                                              characterName: "Spider Foca",
+//                                              isFavorite: true),
+//        ]
     }
 
 }
 
 extension CharactersViewController: CharactersCollectionViewDelegate {
     func didPullRefresh() {
-        // TODO: fetch request here
-        populateCollectionView()
+        fetchData()
     }
 }
 
