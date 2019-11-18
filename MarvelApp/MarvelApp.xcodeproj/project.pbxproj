@@ -27,6 +27,8 @@
 		437892C6237BA4C4008CCCA8 /* CharactersCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 437892C4237BA4C4008CCCA8 /* CharactersCollectionViewCell.swift */; };
 		437892C7237BA4C4008CCCA8 /* CharactersCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 437892C5237BA4C4008CCCA8 /* CharactersCollectionViewCell.xib */; };
 		43B7355B237BA9A9009A6B04 /* UICollectionView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B7355A237BA9A9009A6B04 /* UICollectionView+Extension.swift */; };
+		43CF7A3423835ACA0081C8A3 /* GenericResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43CF7A3323835ACA0081C8A3 /* GenericResponse.swift */; };
+		43CF7A3623835B630081C8A3 /* CharactersResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43CF7A3523835B630081C8A3 /* CharactersResponse.swift */; };
 		8A37C77F731735892F69A3C8 /* Pods_MarvelAppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41205F551F5A132032E4BF1F /* Pods_MarvelAppTests.framework */; };
 		F9F3080AB3BDB0A58D87C831 /* Pods_MarvelApp_MarvelAppUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 210CE7F69660E936B98EDAA9 /* Pods_MarvelApp_MarvelAppUITests.framework */; };
 /* End PBXBuildFile section */
@@ -78,6 +80,8 @@
 		437892C4237BA4C4008CCCA8 /* CharactersCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharactersCollectionViewCell.swift; sourceTree = "<group>"; };
 		437892C5237BA4C4008CCCA8 /* CharactersCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CharactersCollectionViewCell.xib; sourceTree = "<group>"; };
 		43B7355A237BA9A9009A6B04 /* UICollectionView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Extension.swift"; sourceTree = "<group>"; };
+		43CF7A3323835ACA0081C8A3 /* GenericResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericResponse.swift; sourceTree = "<group>"; };
+		43CF7A3523835B630081C8A3 /* CharactersResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharactersResponse.swift; sourceTree = "<group>"; };
 		577FD866A12C24D47AFA7E54 /* Pods-MarvelApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MarvelApp.debug.xcconfig"; path = "Target Support Files/Pods-MarvelApp/Pods-MarvelApp.debug.xcconfig"; sourceTree = "<group>"; };
 		627B1AAFEF25CA970D31BBBF /* Pods-MarvelApp-MarvelAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MarvelApp-MarvelAppTests.debug.xcconfig"; path = "Target Support Files/Pods-MarvelApp-MarvelAppTests/Pods-MarvelApp-MarvelAppTests.debug.xcconfig"; sourceTree = "<group>"; };
 		8571F33744551DC8359D2BF8 /* Pods-MarvelApp-MarvelAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MarvelApp-MarvelAppTests.release.xcconfig"; path = "Target Support Files/Pods-MarvelApp-MarvelAppTests/Pods-MarvelApp-MarvelAppTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -158,6 +162,8 @@
 			isa = PBXGroup;
 			children = (
 				435C8CC6237E1C4100760E3B /* Character.swift */,
+				43CF7A3323835ACA0081C8A3 /* GenericResponse.swift */,
+				43CF7A3523835B630081C8A3 /* CharactersResponse.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -559,6 +565,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				43CF7A3423835ACA0081C8A3 /* GenericResponse.swift in Sources */,
 				4334C542237E16E800B46077 /* BaseService.swift in Sources */,
 				437892C0237BA204008CCCA8 /* CharactersViewController.swift in Sources */,
 				43B7355B237BA9A9009A6B04 /* UICollectionView+Extension.swift in Sources */,
@@ -567,6 +574,7 @@
 				435C8CC4237E1BFD00760E3B /* CharactersViewModel.swift in Sources */,
 				43789283237B98D5008CCCA8 /* SceneDelegate.swift in Sources */,
 				437892B2237B9A25008CCCA8 /* Router.swift in Sources */,
+				43CF7A3623835B630081C8A3 /* CharactersResponse.swift in Sources */,
 				437892C6237BA4C4008CCCA8 /* CharactersCollectionViewCell.swift in Sources */,
 				4334C544237E188700B46077 /* CharactersService.swift in Sources */,
 				437892C3237BA35C008CCCA8 /* CharactersCollectionView.swift in Sources */,

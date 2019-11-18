@@ -9,25 +9,17 @@
 import Alamofire
 import Foundation
 
+enum MarvelError: Error {
+    case invalidResponse
+}
+
 class CharactersService: BaseService {
     
-    static func fetchCharacters(offset: Int) {
+    typealias CharactersResponseCallback = (CharactersResponse?, Error?) -> Void
+    
+    static func fetchCharacters(offset: Int = 20, callback: (CharactersResponseCallback)? = nil) {
         Alamofire.request(url(forEndpoint: "/v1/public/characters")).responseJSON { response in
-            switch response.result {
-            case .success(let value):
-                if let castedValue = value as? [String : Any],
-                    let data = castedValue["data"] as? [String : Any], let results = data["results"] {
-                    if let jsonData = try? JSONSerialization.data(withJSONObject: results,
-                                                                  options: .prettyPrinted) {
-                        let characters = try! JSONDecoder().decode([Character].self, from: jsonData)
-                        print(characters)
-                    }
-                }
-                break
-            case .failure(let error):
-                // todo: handle error
-                print(error)
-            }
+            handle(response: response, callback: callback)
         }
     }
 }

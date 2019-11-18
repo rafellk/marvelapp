@@ -10,6 +10,7 @@ import Foundation
 import var CommonCrypto.CC_MD5_DIGEST_LENGTH
 import func CommonCrypto.CC_MD5
 import typealias CommonCrypto.CC_LONG
+import Alamofire
 
 class BaseService {
     static let serverUrl = "http://gateway.marvel.com"
@@ -28,7 +29,10 @@ class BaseService {
     }
 }
 
-func MD5(string: String) -> Data {
+// Cryptography methods
+extension BaseService {
+    
+    private static func MD5(string: String) -> Data {
         let length = Int(CC_MD5_DIGEST_LENGTH)
         let messageData = string.data(using:.utf8)!
         var digestData = Data(count: length)
@@ -44,3 +48,37 @@ func MD5(string: String) -> Data {
         }
         return digestData
     }
+}
+
+// Error handling methods
+extension BaseService {
+    
+    static func isErrorCode(_ code: Int) -> Bool {
+        return code > 201
+    }
+    
+    static func handle<T>(response: DataResponse<Any>, callback: ((T?, Error?) -> Void)? = nil) where T: Codable {
+        switch response.result {
+        case .success(let value):
+            if let castedValue = value as? [String : Any] {
+                if let jsonData = try? JSONSerialization.data(withJSONObject: castedValue,
+                                                              options: .prettyPrinted),
+                    let response = try? JSONDecoder().decode(GenericResponse<T>.self,
+                                                             from: jsonData) {
+                    if isErrorCode(response.code) {
+                        // todo: create method to handle server errors
+                        callback?(nil, MarvelError.invalidResponse)
+                    } else {
+                        callback?(response.data, nil)
+                    }
+                } else {
+                    callback?(nil, MarvelError.invalidResponse)
+                }
+            }
+            break
+        case .failure(let error):
+            callback?(nil, error)
+        }
+
+    }
+}

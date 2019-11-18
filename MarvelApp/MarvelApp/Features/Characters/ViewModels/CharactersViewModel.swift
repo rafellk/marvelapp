@@ -11,6 +11,7 @@ import Foundation
 class CharactersViewModel {
     
     func fetchCharacters() {
-        CharactersService.fetchCharacters(offset: 30)
+        CharactersService.fetchCharacters(offset: 30) { (response, error) in
+        }
     }
 }
