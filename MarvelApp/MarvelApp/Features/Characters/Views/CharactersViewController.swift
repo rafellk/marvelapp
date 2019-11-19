@@ -11,7 +11,7 @@ import UIKit
 class CharactersViewController: UIViewController {
     
     @IBOutlet weak var collectionView: CharactersCollectionView!
-    var viewModel = CharactersViewModel()
+    var viewModel: CharactersViewModel?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,19 +34,29 @@ class CharactersViewController: UIViewController {
 extension CharactersViewController {
     
     fileprivate func configureViewModel() {
-        let _ = viewModel.datasourceObservable.subscribe { [weak self] (event) in
+        viewModel = CharactersViewModel(withPresenter: self)
+        
+        let _ = viewModel?.datasourceObservable.subscribe { [weak self] (event) in
             // todo: handle error here
             guard let datasource = event.element else { return }
             self?.update(datasouce: datasource)
         }
+        
+        let _ = viewModel?.isLoadingObservable.subscribe(onNext: { [weak self] (isLoading) in
+            if isLoading {
+                // todo: remove loading spinner
+            } else {
+                self?.collectionView.endRefreshing()
+            }
+        })
     }
     
     fileprivate func fetchData() {
-        viewModel.fetchCharacters()
+        viewModel?.fetchCharacters()
     }
     
     fileprivate func fetchMoreData() {
-        viewModel.fetchPaginatedCharacters()
+        viewModel?.fetchPaginatedCharacters()
     }
 }
 

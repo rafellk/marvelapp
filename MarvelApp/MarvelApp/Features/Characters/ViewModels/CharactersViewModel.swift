@@ -9,30 +9,60 @@
 import Foundation
 import RxSwift
 
-class CharactersViewModel {
+class CharactersViewModel: BaseViewModel {
     
-    // Datasource variable
+    // Observable variables
     private var datasource = BehaviorSubject(value: [CharactersCollectionViewModel]())
     var datasourceObservable: Observable<[CharactersCollectionViewModel]> {
         return datasource.asObserver()
     }
+
+    private var isLoading = BehaviorSubject(value: false)
+    var isLoadingObservable: Observable<Bool> {
+        return isLoading.asObserver()
+    }
     
+    init(withPresenter presenter: UIViewController) {
+        super.init()
+        viewController = presenter
+    }
+
+    @objc
     func fetchCharacters() {
-        CharactersService.fetchCharacters() { [weak self] (response, error) in
-            // todo: handle error here
+        isLoading.onNext(true)
+        
+        CharactersService.fetchCharacters() { [unowned self] (response, error) in
+            self.isLoading.onNext(false)
+            
+            if let caughtError = error {
+                self.defaultErrorHandler(withError: caughtError, andRetrySelector: #selector(self.fetchCharacters))
+                return
+            }
+            
             guard let characters = response?.results else { return }
-            self?.resetDatasource(withValues: characters)
+            self.resetDatasource(withValues: characters)
         }
     }
     
+    @objc
     func fetchPaginatedCharacters() {
-        // todo: handle error here
-        guard let count = try? datasource.value().count else { return }
-        CharactersService.fetchCharacters(offset: count) { [weak self] (response, error) in
-            // todo: handle error here
+        isLoading.onNext(true)
+        
+        guard let count = try? datasource.value().count else {
+            isLoading.onNext(false)
+            return
+        }
+        
+        CharactersService.fetchCharacters(offset: count) { [unowned self] (response, error) in
+            self.isLoading.onNext(false)
+            
+            if let caughtError = error {
+                self.defaultErrorHandler(withError: caughtError, andRetrySelector: #selector(self.fetchPaginatedCharacters))
+                return
+            }
+            
             guard let characters = response?.results else { return }
-            print("rlmg count: \(characters.count)")
-            self?.appendToDatasource(withValue: characters)
+            self.appendToDatasource(withValue: characters)
         }
     }
 }

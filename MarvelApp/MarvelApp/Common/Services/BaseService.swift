@@ -57,7 +57,7 @@ extension BaseService {
         return code > 201
     }
     
-    static func handle<T>(response: DataResponse<Any>, callback: ((T?, Error?) -> Void)? = nil) where T: Codable {
+    static func handle<T>(response: DataResponse<Any>, callback: ((T?, MarvelError?) -> Void)? = nil) where T: Codable {
         switch response.result {
         case .success(let value):
             if let castedValue = value as? [String : Any] {
@@ -66,19 +66,23 @@ extension BaseService {
                     let response = try? JSONDecoder().decode(GenericResponse<T>.self,
                                                              from: jsonData) {
                     if isErrorCode(response.code) {
+                        
                         // todo: create method to handle server errors
-                        callback?(nil, MarvelError.invalidResponse)
+                        callback?(nil, MarvelError.invalidRequestOrResponse)
                     } else {
                         callback?(response.data, nil)
                     }
                 } else {
-                    callback?(nil, MarvelError.invalidResponse)
+                    callback?(nil, MarvelError.invalidRequestOrResponse)
                 }
             }
             break
         case .failure(let error):
-            callback?(nil, error)
+            if let urlError = error as? URLError, urlError.code == .notConnectedToInternet {
+                callback?(nil, MarvelError.noInternetConnection)
+            } else {
+                callback?(nil, MarvelError.internalServerError)
+            }
         }
-
     }
 }

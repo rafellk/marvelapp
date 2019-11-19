@@ -86,6 +86,7 @@ extension CharactersCollectionView: UICollectionViewDataSource {
                                                             for: indexPath) as? CharactersCollectionViewCell
         guard let unwrappedCell = cell else {
             assert(false, "Dequeued a table view cell that is not subclass of CharactersCollectionViewCell")
+            return UICollectionViewCell()
         }
         
         if let datasource = datasource {

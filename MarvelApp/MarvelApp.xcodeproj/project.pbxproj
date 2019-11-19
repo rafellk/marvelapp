@@ -10,6 +10,7 @@
 		2C4AF1F7CAFB0CB9D7664A8D /* Pods_MarvelApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 984FFEB7D07C2D49F2F529AB /* Pods_MarvelApp.framework */; };
 		4334C542237E16E800B46077 /* BaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4334C541237E16E800B46077 /* BaseService.swift */; };
 		4334C544237E188700B46077 /* CharactersService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4334C543237E188700B46077 /* CharactersService.swift */; };
+		435C8BD323838DA200D15D2E /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 435C8BD223838DA200D15D2E /* BaseViewModel.swift */; };
 		435C8CC4237E1BFD00760E3B /* CharactersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 435C8CC3237E1BFD00760E3B /* CharactersViewModel.swift */; };
 		435C8CC7237E1C4100760E3B /* Character.swift in Sources */ = {isa = PBXBuildFile; fileRef = 435C8CC6237E1C4100760E3B /* Character.swift */; };
 		43789281237B98D4008CCCA8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43789280237B98D4008CCCA8 /* AppDelegate.swift */; };
@@ -57,6 +58,7 @@
 		42C1246070C75C154C0AD6D7 /* Pods-MarvelAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MarvelAppTests.release.xcconfig"; path = "Target Support Files/Pods-MarvelAppTests/Pods-MarvelAppTests.release.xcconfig"; sourceTree = "<group>"; };
 		4334C541237E16E800B46077 /* BaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseService.swift; sourceTree = "<group>"; };
 		4334C543237E188700B46077 /* CharactersService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharactersService.swift; sourceTree = "<group>"; };
+		435C8BD223838DA200D15D2E /* BaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewModel.swift; sourceTree = "<group>"; };
 		435C8CC3237E1BFD00760E3B /* CharactersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharactersViewModel.swift; sourceTree = "<group>"; };
 		435C8CC6237E1C4100760E3B /* Character.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Character.swift; sourceTree = "<group>"; };
 		4378927D237B98D4008CCCA8 /* MarvelApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MarvelApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -150,6 +152,14 @@
 			path = Services;
 			sourceTree = "<group>";
 		};
+		435C8BD123838D8800D15D2E /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				435C8BD223838DA200D15D2E /* BaseViewModel.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
 		435C8CC2237E1BD500760E3B /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
@@ -234,6 +244,7 @@
 		437892B3237B9E20008CCCA8 /* Features */ = {
 			isa = PBXGroup;
 			children = (
+				435C8BD123838D8800D15D2E /* Common */,
 				437892BA237BA07B008CCCA8 /* Favorites */,
 				437892B6237B9EDF008CCCA8 /* Characters */,
 				437892B4237B9E2F008CCCA8 /* MainTab.storyboard */,
@@ -568,6 +579,7 @@
 				43CF7A3423835ACA0081C8A3 /* GenericResponse.swift in Sources */,
 				4334C542237E16E800B46077 /* BaseService.swift in Sources */,
 				437892C0237BA204008CCCA8 /* CharactersViewController.swift in Sources */,
+				435C8BD323838DA200D15D2E /* BaseViewModel.swift in Sources */,
 				43B7355B237BA9A9009A6B04 /* UICollectionView+Extension.swift in Sources */,
 				43789281237B98D4008CCCA8 /* AppDelegate.swift in Sources */,
 				435C8CC7237E1C4100760E3B /* Character.swift in Sources */,
