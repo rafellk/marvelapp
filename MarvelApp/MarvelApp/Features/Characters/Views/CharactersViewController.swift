@@ -11,11 +11,15 @@ import UIKit
 class CharactersViewController: UIViewController {
     
     @IBOutlet weak var collectionView: CharactersCollectionView!
+    fileprivate var loadingView: LoadingView?
+    
     var viewModel: CharactersViewModel?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         configureNavigationItem()
+        configureLoadingView()
         
         setupCollectionView()
         configureViewModel()
@@ -27,6 +31,11 @@ class CharactersViewController: UIViewController {
         // TODO: localize this
         navigationItem.title = "Characters"
         navigationController?.navigationBar.prefersLargeTitles = true
+    }
+    
+    private func configureLoadingView() {
+        loadingView = UIView.instantiate(withNibName: "LoadingView")
+        loadingView?.frame = view.frame
     }
 }
 
@@ -44,9 +53,11 @@ extension CharactersViewController {
         
         let _ = viewModel?.isLoadingObservable.subscribe(onNext: { [weak self] (isLoading) in
             if isLoading {
-                // todo: remove loading spinner
+                if let control = self?.collectionView.refreshControl, control.isRefreshing { return }
+                self?.showProgress()
             } else {
                 self?.collectionView.endRefreshing()
+                self?.hideProgress()
             }
         })
     }
@@ -80,6 +91,26 @@ extension CharactersViewController: CharactersCollectionViewDelegate {
     
     func didReachTheEnd() {
         fetchMoreData()
+    }
+}
+
+extension CharactersViewController {
+    fileprivate func showProgress() {
+        if let loadingView = loadingView {
+            loadingView.layer.opacity = 0
+            
+            UIView.animate(withDuration: 0.3) { [weak self] in
+                self?.view.addSubview(loadingView)
+                loadingView.layer.opacity = 1
+            }
+        }
+    }
+    
+    fileprivate func hideProgress() {
+        UIView.animate(withDuration: 0.3) { [weak self] in
+            self?.loadingView?.layer.opacity = 0
+            self?.loadingView?.removeFromSuperview()
+        }
     }
 }
 

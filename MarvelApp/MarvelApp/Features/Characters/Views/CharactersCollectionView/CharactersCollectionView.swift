@@ -114,10 +114,6 @@ extension CharactersCollectionView {
         charactersCollectionViewDelegate?.didPullRefresh()
     }
     
-    func startRefreshing() {
-        refreshControl?.beginRefreshing()
-    }
-    
     func endRefreshing() {
         refreshControl?.endRefreshing()
     }

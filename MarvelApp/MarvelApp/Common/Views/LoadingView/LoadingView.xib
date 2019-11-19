@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15508"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="vRF-WQ-9tk" customClass="LoadingView" customModule="MarvelApp" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="410"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <view alpha="0.84999999999999998" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pcT-Uh-3uH">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="410"/>
+                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </view>
+                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="1bT-Fl-hih">
+                    <rect key="frame" x="197" y="195" width="20" height="20"/>
+                    <color key="tintColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                    <color key="color" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </activityIndicatorView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Processing" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Pt-yi-LMb">
+                    <rect key="frame" x="164.5" y="223" width="85" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="1bT-Fl-hih" firstAttribute="centerY" secondItem="pcT-Uh-3uH" secondAttribute="centerY" id="DKb-mo-u7n"/>
+                <constraint firstItem="1bT-Fl-hih" firstAttribute="centerX" secondItem="pcT-Uh-3uH" secondAttribute="centerX" id="Iiu-wj-ItA"/>
+                <constraint firstItem="rWt-h7-DhO" firstAttribute="trailing" secondItem="pcT-Uh-3uH" secondAttribute="trailing" id="QhX-nZ-kIH"/>
+                <constraint firstItem="5Pt-yi-LMb" firstAttribute="centerX" secondItem="pcT-Uh-3uH" secondAttribute="centerX" id="dNv-bQ-Hgg"/>
+                <constraint firstItem="pcT-Uh-3uH" firstAttribute="top" secondItem="vRF-WQ-9tk" secondAttribute="top" id="dPk-uT-eyO"/>
+                <constraint firstItem="5Pt-yi-LMb" firstAttribute="top" secondItem="1bT-Fl-hih" secondAttribute="bottom" constant="8" id="gXA-A5-TgC"/>
+                <constraint firstItem="pcT-Uh-3uH" firstAttribute="leading" secondItem="rWt-h7-DhO" secondAttribute="leading" id="x38-6W-IAV"/>
+                <constraint firstItem="rWt-h7-DhO" firstAttribute="bottom" secondItem="pcT-Uh-3uH" secondAttribute="bottom" id="yBL-pN-RNU"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="rWt-h7-DhO"/>
+            <connections>
+                <outlet property="loadingLabel" destination="5Pt-yi-LMb" id="G9O-rM-3nT"/>
+            </connections>
+            <point key="canvasLocation" x="-484.05797101449281" y="216.96428571428569"/>
+        </view>
+    </objects>
+</document>
