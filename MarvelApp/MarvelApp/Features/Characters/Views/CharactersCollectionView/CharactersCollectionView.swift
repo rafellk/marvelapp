@@ -10,18 +10,37 @@ import UIKit
 
 protocol CharactersCollectionViewDelegate: NSObjectProtocol {
     func didPullRefresh()
+    func didReachTheEnd()
 }
 
 class CharactersCollectionView: UICollectionView {
     
     let defaultLateralPadding: CGFloat = 8.0
+    
+    var pathsToInsert: [IndexPath]?
     var datasource: [CharactersCollectionViewModel]? {
         willSet {
             endRefreshing()
+            if let newValueCount = newValue?.count,
+                let currentValueCount = datasource?.count,
+                currentValueCount > 0,
+                pathsToInsert == nil,
+                currentValueCount < newValueCount {
+                pathsToInsert = [IndexPath]()
+                
+                for i in currentValueCount..<newValueCount {
+                    pathsToInsert?.append(IndexPath(item: i, section: 0))
+                }
+            }
         }
         didSet {
-            DispatchQueue.main.async { [weak self] in
-                self?.reloadData()
+            // todo: remove this from here
+            if pathsToInsert != nil {
+                insertMoreItems()
+            } else {
+                DispatchQueue.main.async { [weak self] in
+                    self?.reloadData()
+                }
             }
         }
     }
@@ -69,8 +88,12 @@ extension CharactersCollectionView: UICollectionViewDataSource {
             assert(false, "Dequeued a table view cell that is not subclass of CharactersCollectionViewCell")
         }
         
-        if let model = datasource?[indexPath.row] {
-            unwrappedCell.model = model
+        if let datasource = datasource {
+            unwrappedCell.model = datasource[indexPath.row]
+            
+            if indexPath.item == datasource.count - 1 {
+                charactersCollectionViewDelegate?.didReachTheEnd()
+            }
         }
         
         return unwrappedCell
@@ -90,7 +113,31 @@ extension CharactersCollectionView {
         charactersCollectionViewDelegate?.didPullRefresh()
     }
     
-    fileprivate func endRefreshing() {
+    func startRefreshing() {
+        refreshControl?.beginRefreshing()
+    }
+    
+    func endRefreshing() {
         refreshControl?.endRefreshing()
+    }
+}
+
+// Collection view update
+extension CharactersCollectionView {
+    
+    fileprivate func insertMoreItems() {
+        // todo: handle error here
+        guard let paths = pathsToInsert else { return }
+        
+        isUserInteractionEnabled = false
+        performBatchUpdates({
+            self.insertItems(at: paths)
+        }, completion: { [weak self] result in
+            if result {
+                self?.pathsToInsert = nil
+            }
+            
+            self?.isUserInteractionEnabled = true
+        })
     }
 }

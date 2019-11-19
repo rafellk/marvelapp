@@ -44,6 +44,10 @@ extension CharactersViewController {
     fileprivate func fetchData() {
         viewModel.fetchCharacters()
     }
+    
+    fileprivate func fetchMoreData() {
+        viewModel.fetchPaginatedCharacters()
+    }
 }
 
 // Collection view related methods
@@ -62,6 +66,10 @@ extension CharactersViewController {
 extension CharactersViewController: CharactersCollectionViewDelegate {
     func didPullRefresh() {
         fetchData()
+    }
+    
+    func didReachTheEnd() {
+        fetchMoreData()
     }
 }
 

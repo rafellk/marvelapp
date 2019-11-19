@@ -17,10 +17,10 @@ class BaseService {
     static let privateKey = "bb10eccb2ff07631d2eabda3fe7561d0b9fb4444"
     static let publicKey = "7c2e898bfbbd5f229c16d3bc97aaee31"
     
-    static func url(forEndpoint endpoint: String) -> String {
+    static func url(forEndpoint endpoint: String, withQuery query: String = "") -> String {
         let date = Date()
         let hashString = BaseService.hashString(withDate: date)
-        return "\(serverUrl)\(endpoint)?ts=\(date.timeIntervalSince1970)&apikey=\(publicKey)&hash=\(hashString)"
+        return "\(serverUrl)\(endpoint)?\(query)&ts=\(date.timeIntervalSince1970)&apikey=\(publicKey)&hash=\(hashString)"
     }
     
     private static func hashString(withDate date: Date) -> String {
