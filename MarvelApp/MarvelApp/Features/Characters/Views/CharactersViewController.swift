@@ -12,6 +12,7 @@ class CharactersViewController: UIViewController {
     
     @IBOutlet weak var collectionView: CharactersCollectionView!
     fileprivate var loadingView: LoadingView?
+    @IBOutlet weak var emptyListLabel: UILabel!
     
     var viewModel: CharactersViewModel?
     
@@ -24,6 +25,7 @@ class CharactersViewController: UIViewController {
         setupCollectionView()
         configureViewModel()
         
+        configureEmptyListLabel()
         fetchData()
     }
     
@@ -45,10 +47,11 @@ extension CharactersViewController {
     fileprivate func configureViewModel() {
         viewModel = CharactersViewModel(withPresenter: self)
         
+        // todo: move callbacks to view model
         let _ = viewModel?.datasourceObservable.subscribe { [weak self] (event) in
             // todo: handle error here
             guard let datasource = event.element else { return }
-            self?.update(datasouce: datasource)
+            self?.update(datasource: datasource)
         }
         
         let _ = viewModel?.isLoadingObservable.subscribe(onNext: { [weak self] (isLoading) in
@@ -71,6 +74,15 @@ extension CharactersViewController {
     }
 }
 
+extension CharactersViewController {
+    
+    fileprivate func configureEmptyListLabel() {
+        // todo: localize this
+        emptyListLabel.text = "No data found. Pull to refresh to fetch data again"
+        emptyListLabel.isHidden = true
+    }
+}
+
 // Collection view related methods
 extension CharactersViewController {
     
@@ -79,8 +91,9 @@ extension CharactersViewController {
         collectionView.charactersCollectionViewDelegate = self
     }
     
-    fileprivate func update(datasouce: [CharactersCollectionViewModel]) {
-        collectionView.datasource = datasouce
+    fileprivate func update(datasource: [CharactersCollectionViewModel]) {
+        emptyListLabel.isHidden = !datasource.isEmpty
+        collectionView.datasource = datasource
     }
 }
 

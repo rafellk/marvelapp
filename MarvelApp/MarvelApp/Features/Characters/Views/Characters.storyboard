@@ -26,12 +26,24 @@
                                 </collectionViewFlowLayout>
                                 <cells/>
                             </collectionView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9ep-cm-QJR">
+                                <rect key="frame" x="41.5" y="420.5" width="331" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="AdF-GX-BCk"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="9ep-cm-QJR" firstAttribute="width" secondItem="IYp-uu-eLW" secondAttribute="width" multiplier="0.8" id="11d-3k-7Qb"/>
+                            <constraint firstItem="9ep-cm-QJR" firstAttribute="centerY" secondItem="2Np-g0-jLw" secondAttribute="centerY" id="8Tq-jP-0EN"/>
                             <constraint firstItem="2Np-g0-jLw" firstAttribute="bottom" secondItem="IYp-uu-eLW" secondAttribute="bottom" id="9Jt-Il-6Uo"/>
                             <constraint firstItem="IYp-uu-eLW" firstAttribute="leading" secondItem="2Np-g0-jLw" secondAttribute="leading" id="FGj-tc-6ZQ"/>
                             <constraint firstItem="IYp-uu-eLW" firstAttribute="top" secondItem="2Np-g0-jLw" secondAttribute="top" id="HNf-U9-0Iz"/>
+                            <constraint firstItem="9ep-cm-QJR" firstAttribute="centerX" secondItem="2Np-g0-jLw" secondAttribute="centerX" id="Yqv-r7-Vom"/>
                             <constraint firstItem="2Np-g0-jLw" firstAttribute="trailing" secondItem="IYp-uu-eLW" secondAttribute="trailing" id="akR-cn-fGa"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="2Np-g0-jLw"/>
@@ -40,6 +52,7 @@
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="collectionView" destination="IYp-uu-eLW" id="Ttp-yS-VVV"/>
+                        <outlet property="emptyListLabel" destination="9ep-cm-QJR" id="XXb-Xp-Ncb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9Js-uV-VQR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
