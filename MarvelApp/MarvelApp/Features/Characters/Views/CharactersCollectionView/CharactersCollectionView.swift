@@ -16,6 +16,8 @@ protocol CharactersCollectionViewDelegate: NSObjectProtocol {
 class CharactersCollectionView: UICollectionView {
     
     let defaultLateralPadding: CGFloat = 8.0
+    var didReachTheEnd = false
+    var isFiltering = false
     
     var pathsToInsert: [IndexPath]?
     var datasource: [CharactersCollectionViewModel]? {
@@ -35,6 +37,8 @@ class CharactersCollectionView: UICollectionView {
         }
         didSet {
             // todo: remove this from here
+            didReachTheEnd = false
+            
             if pathsToInsert != nil {
                 insertMoreItems()
             } else {
@@ -49,10 +53,14 @@ class CharactersCollectionView: UICollectionView {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        
+        delegate = self
         dataSource = self
-        register(cellWithNibName: "CharactersCollectionViewCell")
+                
         configureRefreshControl()
         configureFlowLayout()
+        
+        register(cellWithNibName: "CharactersCollectionViewCell")
     }
     
     private func configureFlowLayout() {
@@ -91,10 +99,6 @@ extension CharactersCollectionView: UICollectionViewDataSource {
         
         if let datasource = datasource {
             unwrappedCell.model = datasource[indexPath.row]
-            
-            if indexPath.item == datasource.count - 1 {
-                charactersCollectionViewDelegate?.didReachTheEnd()
-            }
         }
         
         return unwrappedCell
@@ -136,5 +140,20 @@ extension CharactersCollectionView {
             
             self?.isUserInteractionEnabled = true
         })
+    }
+}
+
+extension CharactersCollectionView: UICollectionViewDelegate {
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let height = scrollView.frame.size.height
+        
+        let contentYoffset = scrollView.contentOffset.y
+        let distanceFromBottom = scrollView.contentSize.height - contentYoffset
+        
+        if let empty = datasource?.isEmpty, !empty, distanceFromBottom < height, !didReachTheEnd, !isFiltering {
+            didReachTheEnd = true
+            charactersCollectionViewDelegate?.didReachTheEnd()
+        }
     }
 }

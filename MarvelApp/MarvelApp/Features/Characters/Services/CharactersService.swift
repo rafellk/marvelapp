@@ -42,4 +42,11 @@ class CharactersService: BaseService {
             handle(response: response, callback: callback)
         }
     }
+
+    static func fetchCharacters(byName name: String, callback: (CharactersResponseCallback)? = nil) {
+        let filteredName = name.replacingOccurrences(of: " ", with: "-").lowercased()
+        Alamofire.request(url(forEndpoint: "/v1/public/characters", withQuery: "orderBy=name&name=\(filteredName)")).responseJSON { response in
+            handle(response: response, callback: callback)
+        }
+    }
 }

@@ -10,16 +10,20 @@ import UIKit
 
 class CharactersViewController: UIViewController {
     
+    // IBOutlets
     @IBOutlet weak var collectionView: CharactersCollectionView!
-    fileprivate var loadingView: LoadingView?
     @IBOutlet weak var emptyListLabel: UILabel!
     
-    var viewModel: CharactersViewModel?
+    private let searchController = UISearchController(searchResultsController: nil)
+    private var loadingView: LoadingView?
+    var viewModel: CharactersViewModel?    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         configureNavigationItem()
+        configureSearchBar()
+        
         configureLoadingView()
         
         setupCollectionView()
@@ -48,11 +52,17 @@ extension CharactersViewController {
         viewModel = CharactersViewModel(withPresenter: self)
         
         // todo: move callbacks to view model
-        let _ = viewModel?.datasourceObservable.subscribe { [weak self] (event) in
-            // todo: handle error here
-            guard let datasource = event.element else { return }
+        let _ = viewModel?.filterDatasourceObservable.subscribe(onNext: { [unowned self] (datasource) in
+            if self.isSearching() {
+                self.collectionView.isFiltering = true
+                self.update(datasource: datasource)
+            }
+        })
+        
+        let _ = viewModel?.datasourceObservable.subscribe(onNext: { [weak self] (datasource) in
+            self?.collectionView.isFiltering = false
             self?.update(datasource: datasource)
-        }
+        })
         
         let _ = viewModel?.isLoadingObservable.subscribe(onNext: { [weak self] (isLoading) in
             if isLoading {
@@ -74,6 +84,7 @@ extension CharactersViewController {
     }
 }
 
+// Empty list extension
 extension CharactersViewController {
     
     fileprivate func configureEmptyListLabel() {
@@ -87,7 +98,6 @@ extension CharactersViewController {
 extension CharactersViewController {
     
     fileprivate func setupCollectionView() {
-        collectionView.delegate = self
         collectionView.charactersCollectionViewDelegate = self
     }
     
@@ -98,6 +108,7 @@ extension CharactersViewController {
 }
 
 extension CharactersViewController: CharactersCollectionViewDelegate {
+    
     func didPullRefresh() {
         fetchData()
     }
@@ -107,7 +118,9 @@ extension CharactersViewController: CharactersCollectionViewDelegate {
     }
 }
 
+// Progress extension
 extension CharactersViewController {
+    
     fileprivate func showProgress() {
         if let loadingView = loadingView {
             loadingView.layer.opacity = 0
@@ -127,5 +140,30 @@ extension CharactersViewController {
     }
 }
 
-extension CharactersViewController: UICollectionViewDelegate {
+// SearchBar extension
+extension CharactersViewController: UISearchBarDelegate {
+    
+    private func configureSearchBar() {
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.placeholder = "Search Character"
+        searchController.searchBar.delegate = self
+        navigationItem.searchController = searchController
+        definesPresentationContext = true
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        if let text = searchController.searchBar.text, !text.isEmpty {
+            viewModel?.fetchFilteredCharacters(byName: text)
+        }
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        viewModel?.cancelFiltering()
+    }
+    
+    private func isSearching() -> Bool {
+        return searchController.isActive &&
+            (searchController.searchBar.text != nil &&
+            !searchController.searchBar.text!.isEmpty)
+    }
 }

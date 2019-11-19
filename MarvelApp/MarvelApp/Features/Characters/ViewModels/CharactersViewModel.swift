@@ -17,6 +17,11 @@ class CharactersViewModel: BaseViewModel {
         return datasource.asObserver()
     }
 
+    private var filterDatasource = BehaviorSubject(value: [CharactersCollectionViewModel]())
+    var filterDatasourceObservable: Observable<[CharactersCollectionViewModel]> {
+        return filterDatasource.asObserver()
+    }
+
     private var isLoading = BehaviorSubject(value: false)
     var isLoadingObservable: Observable<Bool> {
         return isLoading.asObserver()
@@ -26,7 +31,22 @@ class CharactersViewModel: BaseViewModel {
         super.init()
         viewController = presenter
     }
+}
 
+// User actions
+extension CharactersViewModel {
+    
+    func cancelFiltering() {
+        // todo: handle error
+        guard let oldValue = try? datasource.value() else { return }
+        datasource.onNext([])
+        datasource.onNext(oldValue)
+    }
+}
+
+// Server requests extension
+extension CharactersViewModel {
+    
     @objc
     func fetchCharacters() {
         isLoading.onNext(true)
@@ -65,6 +85,23 @@ class CharactersViewModel: BaseViewModel {
             self.appendToDatasource(withValue: characters)
         }
     }
+
+    @objc
+    func fetchFilteredCharacters(byName name: String) {
+        isLoading.onNext(true)
+        
+        CharactersService.fetchCharacters(byName: name) { [unowned self] (response, error) in
+            self.isLoading.onNext(false)
+            
+            if let caughtError = error {
+                self.defaultErrorHandler(withError: caughtError)
+                return
+            }
+            
+            guard let characters = response?.results else { return }
+            self.resetFilterDatasource(withValues: characters)
+        }
+    }
 }
 
 extension CharactersViewModel {
@@ -72,7 +109,11 @@ extension CharactersViewModel {
     fileprivate func resetDatasource(withValues values: [Character]) {
         datasource.onNext(parse(values))
     }
-    
+
+    fileprivate func resetFilterDatasource(withValues values: [Character]) {
+        filterDatasource.onNext(parse(values))
+    }
+
     fileprivate func appendToDatasource(withValue values: [Character]) {
         guard let oldValues = try? datasource.value() else { return }
         var newValues = oldValues
