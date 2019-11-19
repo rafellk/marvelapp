@@ -78,7 +78,7 @@ extension CharactersViewController {
     
     fileprivate func configureEmptyListLabel() {
         // todo: localize this
-        emptyListLabel.text = "No data found. Pull to refresh to fetch data again"
+        emptyListLabel.text = "No data found. Try again later."
         emptyListLabel.isHidden = true
     }
 }
