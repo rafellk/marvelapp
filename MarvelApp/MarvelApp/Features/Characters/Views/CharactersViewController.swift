@@ -101,7 +101,7 @@ extension CharactersViewController {
         collectionView.charactersCollectionViewDelegate = self
     }
     
-    fileprivate func update(datasource: [CharactersCollectionViewModel]) {
+    fileprivate func update(datasource: [Character]) {
         emptyListLabel.isHidden = !datasource.isEmpty
         collectionView.datasource = datasource
     }
@@ -117,7 +117,7 @@ extension CharactersViewController: CharactersCollectionViewDelegate {
         fetchMoreData()
     }
     
-    func didFavorite(character: CharactersCollectionViewModel) {
+    func didFavorite(character: Character) {
         viewModel?.favorite(character: character)
     }
 }

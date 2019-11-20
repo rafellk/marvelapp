@@ -12,6 +12,7 @@ target 'MarvelApp' do
   # Pods for MarvelApp
   pod 'Alamofire', '~> 4.9'
   pod 'RxSwift', '~> 5'
+  pod 'RealmSwift'
 
   target 'MarvelAppTests' do
     inherit! :search_paths

@@ -8,6 +8,6 @@
 
 import Foundation
 
-struct CharactersResponse: Codable {
-    var results: [Character]
+struct CharactersResultsResponse: Codable {
+    var results: [CharacterResponse]
 }

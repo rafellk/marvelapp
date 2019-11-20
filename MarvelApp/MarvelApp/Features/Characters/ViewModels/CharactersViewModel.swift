@@ -12,13 +12,13 @@ import RxSwift
 class CharactersViewModel: BaseViewModel {
     
     // Observable variables
-    private var datasource = BehaviorSubject(value: [CharactersCollectionViewModel]())
-    var datasourceObservable: Observable<[CharactersCollectionViewModel]> {
+    private var datasource = BehaviorSubject(value: [Character]())
+    var datasourceObservable: Observable<[Character]> {
         return datasource.asObserver()
     }
 
-    private var filterDatasource = BehaviorSubject(value: [CharactersCollectionViewModel]())
-    var filterDatasourceObservable: Observable<[CharactersCollectionViewModel]> {
+    private var filterDatasource = BehaviorSubject(value: [Character]())
+    var filterDatasourceObservable: Observable<[Character]> {
         return filterDatasource.asObserver()
     }
 
@@ -43,8 +43,8 @@ extension CharactersViewModel {
         datasource.onNext(oldValue)
     }
     
-    func favorite(character: CharactersCollectionViewModel) {
-        // todo: save to database
+    func favorite(character: Character) {
+        CharactersDatabaseService.addFavorite(character: character)
     }
 }
 
@@ -110,15 +110,15 @@ extension CharactersViewModel {
 
 extension CharactersViewModel {
     
-    fileprivate func resetDatasource(withValues values: [Character]) {
+    fileprivate func resetDatasource(withValues values: [CharacterResponse]) {
         datasource.onNext(parse(values))
     }
 
-    fileprivate func resetFilterDatasource(withValues values: [Character]) {
+    fileprivate func resetFilterDatasource(withValues values: [CharacterResponse]) {
         filterDatasource.onNext(parse(values))
     }
 
-    fileprivate func appendToDatasource(withValue values: [Character]) {
+    fileprivate func appendToDatasource(withValue values: [CharacterResponse]) {
         guard let oldValues = try? datasource.value() else { return }
         var newValues = oldValues
         
@@ -126,9 +126,24 @@ extension CharactersViewModel {
         datasource.onNext(newValues)
     }
     
-    private func parse(_ values: [Character]) -> [CharactersCollectionViewModel] {
-        return values.map { (character) -> CharactersCollectionViewModel in
-            CharactersCollectionViewModel(characterImageURL: "\(character.thumbnail.path).\(character.thumbnail.extensionString)", characterName: character.name, isFavorite: false)
+    private func parse(_ values: [CharacterResponse]) -> [Character] {
+        let favorites = CharactersDatabaseService.listFavorites()
+        
+        return values.map { (response) -> Character in
+            let character = Character()
+            
+            character.id = NSNumber(integerLiteral: response.id)
+            character.name = response.name
+            
+            character.thumbnail = "\(response.thumbnail.path).\(response.thumbnail.extensionString)"
+            character.characterDescription = response.description
+            
+            character.isFavorite = NSNumber(booleanLiteral: checkFavorite(forValue: response, inFavorites: favorites))
+            return character
         }
+    }
+    
+    private func checkFavorite(forValue value: CharacterResponse, inFavorites favorites: [Character]) -> Bool {
+        return favorites.filter { $0.id.intValue == value.id }.count > 0
     }
 }

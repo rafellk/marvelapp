@@ -1,36 +1,29 @@
 //
-//  CharacterModel.swift
+//  Character.swift
 //  MarvelApp
 //
-//  Created by Rafael Lucena on 11/14/19.
+//  Created by Rafael Lucena on 11/19/19.
 //  Copyright © 2019 RLMG. All rights reserved.
 //
 
 import Foundation
+import RealmSwift
 
-struct Character: Codable {
-    var id: Int
-    var name: String
-    var description: String
-    var thumbnail: Thumbnail
-}
-
-struct Thumbnail: Codable {
-    var path: String
-    var extensionString: String
+@objc
+class Character: Object {
+    @objc dynamic var id: NSNumber = 0
+    @objc dynamic var name: String?
+    @objc dynamic var characterDescription: String?
+    @objc dynamic var thumbnail: String?
+    @objc dynamic var isFavorite: NSNumber = false
     
-    private enum CodingKeys : String, CodingKey {
-       case path, extensionString = "extension"
+    override func copy() -> Any {
+        let copy = Character()
+        copy.id = id
+        copy.name = name
+        copy.characterDescription = characterDescription
+        copy.thumbnail = thumbnail
+        copy.isFavorite = isFavorite
+        return copy
     }
 }
-
-//struct ComicList: Codable {
-//
-//    var items: [ComicSummary]
-//}
-//
-//struct ComicSummary: Codable {
-//
-//    var resourceURI: String
-//    var name: String
-//}

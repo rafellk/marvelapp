@@ -11,7 +11,7 @@ import UIKit
 protocol CharactersCollectionViewDelegate: NSObjectProtocol {
     func didPullRefresh()
     func didReachTheEnd()
-    func didFavorite(character: CharactersCollectionViewModel)
+    func didFavorite(character: Character)
 }
 
 class CharactersCollectionView: UICollectionView {
@@ -21,7 +21,7 @@ class CharactersCollectionView: UICollectionView {
     var isFiltering = false
     
     var pathsToInsert: [IndexPath]?
-    var datasource: [CharactersCollectionViewModel]? {
+    var datasource: [Character]? {
         willSet {
             endRefreshing()
             if let newValueCount = newValue?.count,
@@ -163,7 +163,7 @@ extension CharactersCollectionView: UICollectionViewDelegate {
 // CharactersCollectionViewCellDelegate extension
 extension CharactersCollectionView: CharactersCollectionViewCellDelegate {
     
-    func didFavorite(character: CharactersCollectionViewModel) {
+    func didFavorite(character: Character) {
         charactersCollectionViewDelegate?.didFavorite(character: character)
     }
 }

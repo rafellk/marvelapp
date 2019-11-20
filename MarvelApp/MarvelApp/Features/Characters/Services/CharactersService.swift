@@ -35,7 +35,7 @@ enum MarvelError: Error {
 
 class CharactersService: BaseService {
     
-    typealias CharactersResponseCallback = (CharactersResponse?, MarvelError?) -> Void
+    typealias CharactersResponseCallback = (CharactersResultsResponse?, MarvelError?) -> Void
     
     static func fetchCharacters(offset: Int = 0, callback: (CharactersResponseCallback)? = nil) {
         Alamofire.request(url(forEndpoint: "/v1/public/characters", withQuery: "orderBy=name&offset=\(offset)&limit=20")).responseJSON { response in

@@ -9,13 +9,7 @@
 import UIKit
 
 protocol CharactersCollectionViewCellDelegate: NSObjectProtocol {
-    func didFavorite(character: CharactersCollectionViewModel)
-}
-
-struct CharactersCollectionViewModel {
-    var characterImageURL: String
-    var characterName: String
-    var isFavorite: Bool
+    func didFavorite(character: Character)
 }
 
 class CharactersCollectionViewCell: UICollectionViewCell {
@@ -30,7 +24,7 @@ class CharactersCollectionViewCell: UICollectionViewCell {
     /**
      Model variables
      */
-    var model: CharactersCollectionViewModel? {
+    var model: Character? {
         didSet {
             if model != nil {
                 updateUI()
@@ -61,14 +55,16 @@ class CharactersCollectionViewCell: UICollectionViewCell {
     }
     
     private func updateUI() {
-        characterNameLabel.text = model?.characterName
-        characterFavoriteButton.setImage((model != nil && model!.isFavorite) ? UIImage(systemName: "star.fill") : UIImage(systemName: "star"), for: .normal)
+        characterNameLabel.text = model?.name
+        characterFavoriteButton.setImage((model != nil && model!.isFavorite.boolValue) ? UIImage(systemName: "star.fill") : UIImage(systemName: "star"), for: .normal)
     }
     
     @objc
     private func favoriteButtonPressed() {
         if let model = model {
             delegate?.didFavorite(character: model)
+            model.isFavorite = NSNumber(booleanLiteral: !model.isFavorite.boolValue)
+            updateUI()
         }
     }
 }
