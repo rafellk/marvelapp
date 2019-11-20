@@ -42,6 +42,10 @@ extension CharactersViewModel {
         datasource.onNext([])
         datasource.onNext(oldValue)
     }
+    
+    func favorite(character: CharactersCollectionViewModel) {
+        // todo: save to database
+    }
 }
 
 // Server requests extension

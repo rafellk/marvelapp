@@ -16,7 +16,7 @@
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="asd" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CoO-zy-pIM">
-                        <rect key="frame" x="8" y="193" width="183" height="26"/>
+                        <rect key="frame" x="8" y="199" width="183" height="20"/>
                         <constraints>
                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="20" id="hzI-IJ-Lry"/>
                         </constraints>
@@ -25,41 +25,42 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" image="test" translatesAutoresizingMaskIntoConstraints="NO" id="ggX-Hs-h8n">
-                        <rect key="frame" x="0.0" y="0.0" width="225" height="185"/>
+                        <rect key="frame" x="0.0" y="0.0" width="225" height="191"/>
                     </imageView>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="star" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="mw0-Fw-Yak">
-                        <rect key="frame" x="195" y="195" width="22" height="22"/>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CeB-Mg-035">
+                        <rect key="frame" x="195" y="198" width="22" height="22"/>
                         <constraints>
-                            <constraint firstAttribute="width" secondItem="mw0-Fw-Yak" secondAttribute="height" multiplier="1:1" id="VBX-uj-ze1"/>
-                            <constraint firstAttribute="height" constant="22" id="fBm-SX-RIR"/>
+                            <constraint firstAttribute="width" secondItem="CeB-Mg-035" secondAttribute="height" multiplier="1:1" id="dRc-Ma-3vH"/>
+                            <constraint firstAttribute="height" constant="22" id="gKF-Gq-U2D"/>
                         </constraints>
-                    </imageView>
+                        <state key="normal" title="Button" image="star" catalog="system"/>
+                    </button>
                 </subviews>
             </view>
             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
             <constraints>
                 <constraint firstItem="CoO-zy-pIM" firstAttribute="leading" secondItem="ZTg-uK-7eu" secondAttribute="leading" constant="8" id="H5I-zs-piF"/>
-                <constraint firstItem="mw0-Fw-Yak" firstAttribute="leading" secondItem="CoO-zy-pIM" secondAttribute="trailing" constant="4" id="SL9-Sy-nh3"/>
+                <constraint firstItem="CeB-Mg-035" firstAttribute="centerY" secondItem="CoO-zy-pIM" secondAttribute="centerY" id="Jme-4u-fqc"/>
+                <constraint firstItem="ZTg-uK-7eu" firstAttribute="trailing" secondItem="CeB-Mg-035" secondAttribute="trailing" constant="8" id="Oi1-Qb-GtF"/>
                 <constraint firstItem="ZTg-uK-7eu" firstAttribute="bottom" secondItem="CoO-zy-pIM" secondAttribute="bottom" constant="8" id="SNz-dZ-lLt"/>
                 <constraint firstItem="ggX-Hs-h8n" firstAttribute="centerX" secondItem="ZTg-uK-7eu" secondAttribute="centerX" id="bAh-ar-9zK"/>
                 <constraint firstItem="ggX-Hs-h8n" firstAttribute="width" secondItem="gTV-IL-0wX" secondAttribute="width" id="cet-dk-aop"/>
-                <constraint firstItem="mw0-Fw-Yak" firstAttribute="centerY" secondItem="CoO-zy-pIM" secondAttribute="centerY" id="e3d-iI-mzm"/>
                 <constraint firstItem="CoO-zy-pIM" firstAttribute="top" secondItem="ggX-Hs-h8n" secondAttribute="bottom" constant="8" id="kOi-ol-3b8"/>
-                <constraint firstItem="ZTg-uK-7eu" firstAttribute="trailing" secondItem="mw0-Fw-Yak" secondAttribute="trailing" constant="8" id="mmR-5u-Ubv"/>
                 <constraint firstAttribute="top" secondItem="ggX-Hs-h8n" secondAttribute="top" id="sqe-si-gHB"/>
+                <constraint firstItem="CeB-Mg-035" firstAttribute="leading" secondItem="CoO-zy-pIM" secondAttribute="trailing" constant="4" id="zAY-eK-h73"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <size key="customSize" width="225" height="227"/>
             <connections>
+                <outlet property="characterFavoriteButton" destination="CeB-Mg-035" id="uv1-9A-MTE"/>
                 <outlet property="characterNameLabel" destination="CoO-zy-pIM" id="hCB-HP-VHS"/>
                 <outlet property="charactersImageView" destination="ggX-Hs-h8n" id="pd0-AU-eLY"/>
-                <outlet property="chracterFavoriteImageView" destination="mw0-Fw-Yak" id="DiS-k3-u0l"/>
             </connections>
             <point key="canvasLocation" x="-68.840579710144937" y="59.263392857142854"/>
         </collectionViewCell>
     </objects>
     <resources>
         <image name="star" catalog="system" width="64" height="58"/>
-        <image name="test" width="181" height="185"/>
+        <image name="test" width="1380" height="1632"/>
     </resources>
 </document>

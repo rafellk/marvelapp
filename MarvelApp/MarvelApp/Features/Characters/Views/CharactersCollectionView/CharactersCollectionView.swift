@@ -11,6 +11,7 @@ import UIKit
 protocol CharactersCollectionViewDelegate: NSObjectProtocol {
     func didPullRefresh()
     func didReachTheEnd()
+    func didFavorite(character: CharactersCollectionViewModel)
 }
 
 class CharactersCollectionView: UICollectionView {
@@ -99,6 +100,7 @@ extension CharactersCollectionView: UICollectionViewDataSource {
         
         if let datasource = datasource {
             unwrappedCell.model = datasource[indexPath.row]
+            unwrappedCell.delegate = self
         }
         
         return unwrappedCell
@@ -155,5 +157,13 @@ extension CharactersCollectionView: UICollectionViewDelegate {
             didReachTheEnd = true
             charactersCollectionViewDelegate?.didReachTheEnd()
         }
+    }
+}
+
+// CharactersCollectionViewCellDelegate extension
+extension CharactersCollectionView: CharactersCollectionViewCellDelegate {
+    
+    func didFavorite(character: CharactersCollectionViewModel) {
+        charactersCollectionViewDelegate?.didFavorite(character: character)
     }
 }

@@ -116,6 +116,10 @@ extension CharactersViewController: CharactersCollectionViewDelegate {
     func didReachTheEnd() {
         fetchMoreData()
     }
+    
+    func didFavorite(character: CharactersCollectionViewModel) {
+        viewModel?.favorite(character: character)
+    }
 }
 
 // Progress extension
