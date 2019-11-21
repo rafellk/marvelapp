@@ -18,7 +18,7 @@ class CharactersCollectionViewCell: UICollectionViewCell {
     /**
      IBOutlets variables
      */
-    @IBOutlet private weak var charactersImageView: UIImageView!
+    @IBOutlet private weak var charactersImageView: LoadingImageView!
     @IBOutlet weak var characterNameLabel: UILabel!
     @IBOutlet weak var characterFavoriteButton: UIButton!
     
@@ -27,6 +27,7 @@ class CharactersCollectionViewCell: UICollectionViewCell {
      */
     var model: Character? {
         didSet {
+            clear()
             if model != nil {
                 updateUI()
             }
@@ -61,12 +62,18 @@ class CharactersCollectionViewCell: UICollectionViewCell {
             characterFavoriteButton.setImage(model.isFavorite.boolValue ? UIImage(systemName: "star.fill") : UIImage(systemName: "star"), for: .normal)
             
             if let thumbnail = model.thumbnail, let image = ImageDownloaderService.shared.cachedImage(withURL: thumbnail) {
-                charactersImageView.image = image
+                charactersImageView.configureImageState(withImage: image)
             } else {
-                charactersImageView.image = UIImage(named: "marvel_icon")
+                charactersImageView.configureLoadingState()
                 delegate?.needsImageFetchRequest(forCharacter: model)
             }
         }
+    }
+    
+    private func clear() {
+        characterNameLabel.text = ""
+        characterFavoriteButton.setImage(UIImage(systemName: "star"), for: .normal)
+        charactersImageView.configureImageState(withImage: nil)
     }
     
     @objc

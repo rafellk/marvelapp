@@ -24,7 +24,7 @@
                         <color key="textColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" translatesAutoresizingMaskIntoConstraints="NO" id="ggX-Hs-h8n">
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" translatesAutoresizingMaskIntoConstraints="NO" id="ggX-Hs-h8n" customClass="LoadingImageView" customModule="MarvelApp" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="225" height="191"/>
                     </imageView>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CeB-Mg-035">
@@ -54,7 +54,7 @@
             <connections>
                 <outlet property="characterFavoriteButton" destination="CeB-Mg-035" id="uv1-9A-MTE"/>
                 <outlet property="characterNameLabel" destination="CoO-zy-pIM" id="hCB-HP-VHS"/>
-                <outlet property="charactersImageView" destination="ggX-Hs-h8n" id="pd0-AU-eLY"/>
+                <outlet property="charactersImageView" destination="ggX-Hs-h8n" id="Ube-9j-cQI"/>
             </connections>
             <point key="canvasLocation" x="-68.840579710144937" y="59.263392857142854"/>
         </collectionViewCell>
