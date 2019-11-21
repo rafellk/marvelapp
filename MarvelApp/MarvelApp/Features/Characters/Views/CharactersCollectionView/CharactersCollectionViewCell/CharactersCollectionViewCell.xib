@@ -24,7 +24,7 @@
                         <color key="textColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" image="test" translatesAutoresizingMaskIntoConstraints="NO" id="ggX-Hs-h8n">
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" translatesAutoresizingMaskIntoConstraints="NO" id="ggX-Hs-h8n">
                         <rect key="frame" x="0.0" y="0.0" width="225" height="191"/>
                     </imageView>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CeB-Mg-035">
@@ -61,6 +61,5 @@
     </objects>
     <resources>
         <image name="star" catalog="system" width="64" height="58"/>
-        <image name="test" width="1380" height="1632"/>
     </resources>
 </document>
