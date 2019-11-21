@@ -172,9 +172,8 @@ extension CharactersViewModel {
     
     private func index(forCharacter character: Character) -> Int? {
         if let filter = try? filterDatasource.value(),
-            !filter.isEmpty,
-            let index: Int = filter.firstIndex(of: character) {
-            return index
+            !filter.isEmpty {
+            return filter.firstIndex(of: character)
         }
         
         if let datasource = try? datasource.value(),
