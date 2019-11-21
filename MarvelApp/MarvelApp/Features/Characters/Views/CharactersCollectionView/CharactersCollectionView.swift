@@ -12,6 +12,7 @@ protocol CharactersCollectionViewDelegate: NSObjectProtocol {
     func didPullRefresh()
     func didReachTheEnd()
     func didFavorite(character: Character)
+    func needsImageFetchRequest(character: Character)
 }
 
 class CharactersCollectionView: UICollectionView {
@@ -99,8 +100,8 @@ extension CharactersCollectionView: UICollectionViewDataSource {
         }
         
         if let datasource = datasource {
-            unwrappedCell.model = datasource[indexPath.row]
             unwrappedCell.delegate = self
+            unwrappedCell.model = datasource[indexPath.row]
         }
         
         return unwrappedCell
@@ -165,5 +166,9 @@ extension CharactersCollectionView: CharactersCollectionViewCellDelegate {
     
     func didFavorite(character: Character) {
         charactersCollectionViewDelegate?.didFavorite(character: character)
+    }
+    
+    func needsImageFetchRequest(forCharacter character: Character) {
+        charactersCollectionViewDelegate?.needsImageFetchRequest(character: character)
     }
 }

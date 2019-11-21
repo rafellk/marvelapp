@@ -9,6 +9,7 @@
 import Alamofire
 import Foundation
 
+// todo: remove this from here
 enum MarvelError: Error {
     case noInternetConnection
     case invalidRequestOrResponse

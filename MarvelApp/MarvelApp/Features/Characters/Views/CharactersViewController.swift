@@ -64,6 +64,15 @@ extension CharactersViewController {
             self?.update(datasource: datasource)
         })
         
+        let _ = viewModel?.modelsToUpdateObservable.subscribe(onNext: { (values) in
+            if !values.isEmpty {
+                let indexPaths = values.map { IndexPath(item: $0, section: 0) }
+                DispatchQueue.main.async { [weak self] in
+                    self?.collectionView.reloadItems(at: indexPaths)
+                }
+            }
+        })
+        
         let _ = viewModel?.isLoadingObservable.subscribe(onNext: { [weak self] (isLoading) in
             if isLoading {
                 if let control = self?.collectionView.refreshControl, control.isRefreshing { return }
@@ -119,6 +128,10 @@ extension CharactersViewController: CharactersCollectionViewDelegate {
     
     func didFavorite(character: Character) {
         viewModel?.favorite(character: character)
+    }
+    
+    func needsImageFetchRequest(character: Character) {
+        viewModel?.fetchImage(forCharacter: character)
     }
 }
 

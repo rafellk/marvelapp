@@ -10,6 +10,7 @@ import UIKit
 
 protocol CharactersCollectionViewCellDelegate: NSObjectProtocol {
     func didFavorite(character: Character)
+    func needsImageFetchRequest(forCharacter character: Character)
 }
 
 class CharactersCollectionViewCell: UICollectionViewCell {
@@ -55,8 +56,17 @@ class CharactersCollectionViewCell: UICollectionViewCell {
     }
     
     private func updateUI() {
-        characterNameLabel.text = model?.name
-        characterFavoriteButton.setImage((model != nil && model!.isFavorite.boolValue) ? UIImage(systemName: "star.fill") : UIImage(systemName: "star"), for: .normal)
+        if let model = model {
+            characterNameLabel.text = model.name
+            characterFavoriteButton.setImage(model.isFavorite.boolValue ? UIImage(systemName: "star.fill") : UIImage(systemName: "star"), for: .normal)
+            
+            if let thumbnail = model.thumbnail, let image = ImageDownloaderService.shared.cachedImage(withURL: thumbnail) {
+                charactersImageView.image = image
+            } else {
+                charactersImageView.image = UIImage(named: "marvel_icon")
+                delegate?.needsImageFetchRequest(forCharacter: model)
+            }
+        }
     }
     
     @objc

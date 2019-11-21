@@ -27,6 +27,11 @@ class CharactersViewModel: BaseViewModel {
         return isLoading.asObserver()
     }
     
+    private var modelsToUpdate = BehaviorSubject(value: [Int]())
+    var modelsToUpdateObservable: Observable<[Int]> {
+        return modelsToUpdate.asObserver()
+    }
+    
     init(withPresenter presenter: UIViewController) {
         super.init()
         viewController = presenter
@@ -39,6 +44,7 @@ extension CharactersViewModel {
     func cancelFiltering() {
         // todo: handle error
         guard let oldValue = try? datasource.value() else { return }
+        filterDatasource.onNext([])
         datasource.onNext([])
         datasource.onNext(oldValue)
     }
@@ -106,8 +112,25 @@ extension CharactersViewModel {
             self.resetFilterDatasource(withValues: characters)
         }
     }
+    
+    func fetchImage(forCharacter character: Character) {
+        modelsToUpdate.onNext([])
+        
+        if let thumbnail = character.thumbnail {
+            ImageDownloaderService.shared.requestImage(withURL: thumbnail) { [weak self] (error) in
+                guard error == nil else {
+                    return
+                }
+                
+                if let index = self?.index(forCharacter: character) {
+                    self?.modelsToUpdate.onNext([index])
+                }
+            }
+        }
+    }
 }
 
+// Datasource manipulation extension
 extension CharactersViewModel {
     
     fileprivate func resetDatasource(withValues values: [CharacterResponse]) {
@@ -145,5 +168,21 @@ extension CharactersViewModel {
     
     private func checkFavorite(forValue value: CharacterResponse, inFavorites favorites: [Character]) -> Bool {
         return favorites.filter { $0.id.intValue == value.id }.count > 0
+    }
+    
+    private func index(forCharacter character: Character) -> Int? {
+        if let filter = try? filterDatasource.value(),
+            !filter.isEmpty,
+            let index: Int = filter.firstIndex(of: character) {
+            return index
+        }
+        
+        if let datasource = try? datasource.value(),
+            !datasource.isEmpty,
+            let index: Int = datasource.firstIndex(of: character) {
+            return index
+        }
+        
+        return nil
     }
 }
