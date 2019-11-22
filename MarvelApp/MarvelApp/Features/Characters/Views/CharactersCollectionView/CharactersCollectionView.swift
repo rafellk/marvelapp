@@ -53,6 +53,11 @@ class CharactersCollectionView: UICollectionView {
     
     weak var charactersCollectionViewDelegate: CharactersCollectionViewDelegate?
     
+    private let sectionInsets = UIEdgeInsets(top: 0,
+                                             left: 16,
+                                             bottom: 8,
+                                             right: 20)
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         
@@ -60,26 +65,34 @@ class CharactersCollectionView: UICollectionView {
         dataSource = self
                 
         configureRefreshControl()
-        configureFlowLayout()
-        
         register(cellWithNibName: "CharactersCollectionViewCell")
     }
-    
-    private func configureFlowLayout() {
-        let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
-        layout.sectionInset = UIEdgeInsets(
-            top: defaultLateralPadding,
-            left: defaultLateralPadding,
-            bottom: defaultLateralPadding,
-            right: defaultLateralPadding
-        )
-        
-        let width = frame.size.width
-        let calculatedWidth = width / 2.4
+}
 
-        layout.itemSize = CGSize(width: calculatedWidth, height: calculatedWidth)
-        layout.scrollDirection = .vertical
-        collectionViewLayout = layout
+extension CharactersCollectionView: UICollectionViewDelegateFlowLayout {
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let numberOfLines: CGFloat = 2
+        let paddingSpace = sectionInsets.left * (numberOfLines + 1)
+        
+        let availableWidth = frame.width - paddingSpace
+        let widthPerItem = availableWidth / numberOfLines
+
+        return CGSize(width: widthPerItem, height: widthPerItem)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        insetForSectionAt section: Int) -> UIEdgeInsets {
+        return sectionInsets
+    }
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return sectionInsets.bottom
     }
 }
 
