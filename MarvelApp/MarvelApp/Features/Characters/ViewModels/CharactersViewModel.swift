@@ -27,9 +27,9 @@ class CharactersViewModel: BaseViewModel {
         return isLoading.asObserver()
     }
     
-    private var modelsToUpdate = BehaviorSubject(value: [Int]())
-    var modelsToUpdateObservable: Observable<[Int]> {
-        return modelsToUpdate.asObserver()
+    private var modelsToInsert = BehaviorSubject(value: [Int]())
+    var modelsToInsertObservable: Observable<[Int]> {
+        return modelsToInsert.asObserver()
     }
     
     init(withPresenter presenter: UIViewController) {
@@ -114,7 +114,7 @@ extension CharactersViewModel {
     }
     
     func fetchImage(forCharacter character: Character) {
-        modelsToUpdate.onNext([])
+        modelsToInsert.onNext([])
         
         if let thumbnail = character.thumbnail {
             ImageDownloaderService.shared.requestImage(withURL: thumbnail) { [weak self] (error) in
@@ -123,10 +123,14 @@ extension CharactersViewModel {
                 }
                 
                 if let index = self?.index(forCharacter: character) {
-                    self?.modelsToUpdate.onNext([index])
+                    self?.modelsToInsert.onNext([index])
                 }
             }
         }
+    }
+    
+    func fetchFavorites() -> [Character] {
+        return CharactersDatabaseService.listFavorites()
     }
 }
 

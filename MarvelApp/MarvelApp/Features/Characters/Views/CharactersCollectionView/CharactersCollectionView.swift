@@ -20,6 +20,7 @@ class CharactersCollectionView: UICollectionView {
     let defaultLateralPadding: CGFloat = 8.0
     var didReachTheEnd = false
     var isFiltering = false
+    var isInfiniteScrollActivated = true
     
     var pathsToInsert: [IndexPath]?
     var datasource: [Character]? {
@@ -53,7 +54,7 @@ class CharactersCollectionView: UICollectionView {
     
     weak var charactersCollectionViewDelegate: CharactersCollectionViewDelegate?
     
-    private let sectionInsets = UIEdgeInsets(top: 0,
+    private let sectionInsets = UIEdgeInsets(top: 8,
                                              left: 16,
                                              bottom: 8,
                                              right: 20)
@@ -167,7 +168,7 @@ extension CharactersCollectionView: UICollectionViewDelegate {
         let contentYoffset = scrollView.contentOffset.y
         let distanceFromBottom = scrollView.contentSize.height - contentYoffset
         
-        if let empty = datasource?.isEmpty, !empty, distanceFromBottom < height, !didReachTheEnd, !isFiltering {
+        if let empty = datasource?.isEmpty, !empty, distanceFromBottom < height, !didReachTheEnd, !isFiltering, isInfiniteScrollActivated {
             didReachTheEnd = true
             charactersCollectionViewDelegate?.didReachTheEnd()
         }
