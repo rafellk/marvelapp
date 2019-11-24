@@ -79,9 +79,9 @@ class CharactersCollectionViewCell: UICollectionViewCell {
     @objc
     private func favoriteButtonPressed() {
         if let model = model {
+            let newValue = !model.isFavorite.boolValue
+            characterFavoriteButton.setImage(newValue ? UIImage(systemName: "star.fill") : UIImage(systemName: "star"), for: .normal)
             delegate?.didFavorite(character: model)
-            model.isFavorite = NSNumber(booleanLiteral: !model.isFavorite.boolValue)
-            updateUI()
         }
     }
 }

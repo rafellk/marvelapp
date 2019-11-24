@@ -17,16 +17,16 @@ class CharactersDatabaseService {
     static let shared = CharactersDatabaseService()
     private var models: Results<Character>
     private var token: NotificationToken?
-    var onChange: (([Character]) -> Void)?
+    private var onChangeCallbacks = [([Character]) -> Void]()
     
     private init() {
         models = realm.objects(Character.self)
         token = models.observe { [weak self] (changes) in
         switch changes {
             case.initial(let result):
-                self?.onChange?(result.map({ $0 }))
+                self?.onChangeCallbacks.forEach { $0(result.map({ $0 })) }
             case .update(let result):
-                self?.onChange?(result.0.map({ $0 }))
+                self?.onChangeCallbacks.forEach { $0(result.0.map({ $0 })) }
                 break
             default:
                 break
@@ -50,7 +50,9 @@ class CharactersDatabaseService {
             
             do {
                 try realm.write {
-                    realm.add(copy)
+                    realm.create(Character.self,
+                                 value: copy,
+                                 update: false)
                     callback?(nil)
                 }
             } catch {
@@ -64,7 +66,7 @@ class CharactersDatabaseService {
     }
     
     func subscribeToChanges(callback: @escaping ([Character]) -> Void) {
-        onChange = callback
+        onChangeCallbacks.append(callback)
     }
     
     private func checkExistence(ofCharacter character: Character) -> Character? {

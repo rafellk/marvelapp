@@ -57,6 +57,7 @@ extension CharactersViewModel {
         CharactersDatabaseService.shared.addFavorite(character: character, callback: { [weak self] error in
             guard error == nil else { return }
             self?.isLoading.onNext(false)
+            
         })
     }
 }
@@ -146,6 +147,32 @@ extension CharactersViewModel {
             }
             
             isLoading.onNext(false)
+        }
+    }
+    
+    func subscribeToChangesInDatabase() {
+        CharactersDatabaseService.shared.subscribeToChanges { [weak self] (changes) in
+            guard let filterDatasource = try? self?.filterDatasource.value() else { return }
+            
+            if !filterDatasource.isEmpty {
+                filterDatasource.forEach { (character) in
+                    let index = changes.firstIndex(where: { $0.id.intValue == character.id.intValue })
+                    character.isFavorite = NSNumber(booleanLiteral: index != nil)
+                }
+                
+                self?.filterDatasource.onNext(filterDatasource)
+            }
+            
+            guard let datasource = try? self?.datasource.value() else { return }
+            
+            if !datasource.isEmpty {
+                datasource.forEach { (character) in
+                    let index = changes.firstIndex(where: { $0.id.intValue == character.id.intValue })
+                    character.isFavorite = NSNumber(booleanLiteral: index != nil)
+                }
+                
+                self?.datasource.onNext(datasource)
+            }
         }
     }
 }

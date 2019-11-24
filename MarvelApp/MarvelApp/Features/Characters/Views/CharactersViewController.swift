@@ -38,6 +38,7 @@ extension CharactersViewController {
 extension CharactersViewController {
     
     override func fetchData() {
+        viewModel?.subscribeToChangesInDatabase()
         viewModel?.fetchCharacters()
     }
     
