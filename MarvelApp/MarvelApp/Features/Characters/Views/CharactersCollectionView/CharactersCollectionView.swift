@@ -13,6 +13,7 @@ protocol CharactersCollectionViewDelegate: NSObjectProtocol {
     func didReachTheEnd()
     func didFavorite(character: Character)
     func needsImageFetchRequest(character: Character)
+    func didSelectItem(character: Character)
 }
 
 class CharactersCollectionView: UICollectionView {
@@ -171,6 +172,12 @@ extension CharactersCollectionView: UICollectionViewDelegate {
         if let empty = datasource?.isEmpty, !empty, distanceFromBottom < height, !didReachTheEnd, !isFiltering, isInfiniteScrollActivated {
             didReachTheEnd = true
             charactersCollectionViewDelegate?.didReachTheEnd()
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if let item = datasource?[indexPath.item] {
+            charactersCollectionViewDelegate?.didSelectItem(character: item)
         }
     }
 }

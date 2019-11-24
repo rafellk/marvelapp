@@ -32,6 +32,10 @@
 		437892C3237BA35C008CCCA8 /* CharactersCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 437892C2237BA35C008CCCA8 /* CharactersCollectionView.swift */; };
 		437892C6237BA4C4008CCCA8 /* CharactersCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 437892C4237BA4C4008CCCA8 /* CharactersCollectionViewCell.swift */; };
 		437892C7237BA4C4008CCCA8 /* CharactersCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 437892C5237BA4C4008CCCA8 /* CharactersCollectionViewCell.xib */; };
+		43A7DD73238B28BD00D73161 /* Character.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 43A7DD72238B28BD00D73161 /* Character.storyboard */; };
+		43A7DD76238B2A0800D73161 /* CharacterTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43A7DD75238B2A0800D73161 /* CharacterTableView.swift */; };
+		43A7DD78238B2E4500D73161 /* CharacterImageDescriptionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43A7DD77238B2E4500D73161 /* CharacterImageDescriptionTableViewCell.swift */; };
+		43A7DD7B238B2F5C00D73161 /* CharacterImageDescriptionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 43A7DD7A238B2F5C00D73161 /* CharacterImageDescriptionTableViewCell.xib */; };
 		43B7355B237BA9A9009A6B04 /* UICollectionView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B7355A237BA9A9009A6B04 /* UICollectionView+Extension.swift */; };
 		43CF7A3423835ACA0081C8A3 /* GenericResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43CF7A3323835ACA0081C8A3 /* GenericResponse.swift */; };
 		43CF7A3623835B630081C8A3 /* CharactersResultsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43CF7A3523835B630081C8A3 /* CharactersResultsResponse.swift */; };
@@ -95,6 +99,10 @@
 		437892C2237BA35C008CCCA8 /* CharactersCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharactersCollectionView.swift; sourceTree = "<group>"; };
 		437892C4237BA4C4008CCCA8 /* CharactersCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharactersCollectionViewCell.swift; sourceTree = "<group>"; };
 		437892C5237BA4C4008CCCA8 /* CharactersCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CharactersCollectionViewCell.xib; sourceTree = "<group>"; };
+		43A7DD72238B28BD00D73161 /* Character.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Character.storyboard; sourceTree = "<group>"; };
+		43A7DD75238B2A0800D73161 /* CharacterTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterTableView.swift; sourceTree = "<group>"; };
+		43A7DD77238B2E4500D73161 /* CharacterImageDescriptionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterImageDescriptionTableViewCell.swift; sourceTree = "<group>"; };
+		43A7DD7A238B2F5C00D73161 /* CharacterImageDescriptionTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CharacterImageDescriptionTableViewCell.xib; sourceTree = "<group>"; };
 		43B7355A237BA9A9009A6B04 /* UICollectionView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Extension.swift"; sourceTree = "<group>"; };
 		43CF7A3323835ACA0081C8A3 /* GenericResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericResponse.swift; sourceTree = "<group>"; };
 		43CF7A3523835B630081C8A3 /* CharactersResultsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharactersResultsResponse.swift; sourceTree = "<group>"; };
@@ -308,6 +316,7 @@
 		437892B3237B9E20008CCCA8 /* Features */ = {
 			isa = PBXGroup;
 			children = (
+				43A7DD70238B28AA00D73161 /* Character */,
 				435C8BD123838D8800D15D2E /* Common */,
 				437892BA237BA07B008CCCA8 /* Favorites */,
 				437892B6237B9EDF008CCCA8 /* Characters */,
@@ -370,6 +379,41 @@
 				437892C5237BA4C4008CCCA8 /* CharactersCollectionViewCell.xib */,
 			);
 			path = CharactersCollectionViewCell;
+			sourceTree = "<group>";
+		};
+		43A7DD70238B28AA00D73161 /* Character */ = {
+			isa = PBXGroup;
+			children = (
+				43A7DD71238B28B400D73161 /* Views */,
+			);
+			path = Character;
+			sourceTree = "<group>";
+		};
+		43A7DD71238B28B400D73161 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				43A7DD74238B29F800D73161 /* CharacterTableView */,
+				43A7DD72238B28BD00D73161 /* Character.storyboard */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		43A7DD74238B29F800D73161 /* CharacterTableView */ = {
+			isa = PBXGroup;
+			children = (
+				43A7DD79238B2F4C00D73161 /* CharacterImageDescriptionTableViewCell */,
+				43A7DD75238B2A0800D73161 /* CharacterTableView.swift */,
+			);
+			path = CharacterTableView;
+			sourceTree = "<group>";
+		};
+		43A7DD79238B2F4C00D73161 /* CharacterImageDescriptionTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				43A7DD77238B2E4500D73161 /* CharacterImageDescriptionTableViewCell.swift */,
+				43A7DD7A238B2F5C00D73161 /* CharacterImageDescriptionTableViewCell.xib */,
+			);
+			path = CharacterImageDescriptionTableViewCell;
 			sourceTree = "<group>";
 		};
 		43B73558237BA996009A6B04 /* Common */ = {
@@ -518,8 +562,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				43A7DD73238B28BD00D73161 /* Character.storyboard in Resources */,
 				437892B9237B9EFB008CCCA8 /* Characters.storyboard in Resources */,
 				4378928D237B98D6008CCCA8 /* LaunchScreen.storyboard in Resources */,
+				43A7DD7B238B2F5C00D73161 /* CharacterImageDescriptionTableViewCell.xib in Resources */,
 				437892C7237BA4C4008CCCA8 /* CharactersCollectionViewCell.xib in Resources */,
 				437892B5237B9E2F008CCCA8 /* MainTab.storyboard in Resources */,
 				4326823D23847E9600CF124B /* LoadingView.xib in Resources */,
@@ -656,6 +702,7 @@
 				4334C542237E16E800B46077 /* BaseService.swift in Sources */,
 				432682402384821F00CF124B /* UIView+Extension.swift in Sources */,
 				4365B379238774D700552F7D /* BaseCharactersViewController.swift in Sources */,
+				43A7DD76238B2A0800D73161 /* CharacterTableView.swift in Sources */,
 				437892C0237BA204008CCCA8 /* CharactersViewController.swift in Sources */,
 				43F8651B2384C8EC00E69DA9 /* CharactersDatabaseService.swift in Sources */,
 				43E5CA942386309300672196 /* LoadingImageView.swift in Sources */,
@@ -665,6 +712,7 @@
 				43789281237B98D4008CCCA8 /* AppDelegate.swift in Sources */,
 				435C8CC7237E1C4100760E3B /* CharacterResponse.swift in Sources */,
 				435C8CC4237E1BFD00760E3B /* CharactersViewModel.swift in Sources */,
+				43A7DD78238B2E4500D73161 /* CharacterImageDescriptionTableViewCell.swift in Sources */,
 				4326823B23847E8800CF124B /* LoadingView.swift in Sources */,
 				43789283237B98D5008CCCA8 /* SceneDelegate.swift in Sources */,
 				437892B2237B9A25008CCCA8 /* Router.swift in Sources */,

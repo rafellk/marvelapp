@@ -124,6 +124,10 @@ extension BaseCharactersViewController: CharactersCollectionViewDelegate {
     func needsImageFetchRequest(character: Character) {
         viewModel?.fetchImage(forCharacter: character)
     }
+    
+    func didSelectItem(character: Character) {
+        viewModel?.select(item: character)
+    }
 }
 
 // Progress extension

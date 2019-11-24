@@ -60,6 +60,12 @@ extension CharactersViewModel {
             
         })
     }
+    
+    func select(item: Character) {
+        if let navigationController = viewController?.navigationController {
+            Router.toCharacterViewController(fromNavigationController: navigationController)
+        }
+    }
 }
 
 // Server requests extension
