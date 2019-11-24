@@ -13,11 +13,9 @@ class CharactersViewController: BaseCharactersViewController {
     private let searchController = UISearchController(searchResultsController: nil)
     
     override func viewDidLoad() {
+        super.viewDidLoad()
         configureNavigationItem(withTitle: "Characters")
         configureSearchBar()
-        collectionView.isInfiniteScrollActivated = false
-        
-        super.viewDidLoad()
     }
 }
 

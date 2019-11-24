@@ -48,11 +48,12 @@ extension BaseCharactersViewController {
         viewModel = CharactersViewModel(withPresenter: self)
         
         let _ = viewModel?.datasourceObservable.subscribe(onNext: { [weak self] (datasource) in
+            print("rlmg datasource: \(datasource.count)")
             self?.collectionView.isFiltering = false
             self?.update(datasource: datasource)
         })
         
-        let _ = viewModel?.modelsToInsertObservable.subscribe(onNext: { (values) in
+        let _ = viewModel?.modelsToUpdateObservable.subscribe(onNext: { (values) in
             if !values.isEmpty {
                 let indexPaths = values.map { IndexPath(item: $0, section: 0) }
                 DispatchQueue.main.async { [weak self] in
@@ -60,7 +61,7 @@ extension BaseCharactersViewController {
                 }
             }
         })
-        
+
         let _ = viewModel?.isLoadingObservable.subscribe(onNext: { [weak self] (isLoading) in
             if isLoading {
                 if let control = self?.collectionView.refreshControl, control.isRefreshing { return }

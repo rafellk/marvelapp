@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import RealmSwift
 import RxSwift
 
 class CharactersViewModel: BaseViewModel {
@@ -27,10 +28,12 @@ class CharactersViewModel: BaseViewModel {
         return isLoading.asObserver()
     }
     
-    private var modelsToInsert = BehaviorSubject(value: [Int]())
-    var modelsToInsertObservable: Observable<[Int]> {
-        return modelsToInsert.asObserver()
+    private var modelsToUpdate = BehaviorSubject(value: [Int]())
+    var modelsToUpdateObservable: Observable<[Int]> {
+        return modelsToUpdate.asObserver()
     }
+    
+    private var didFetchFavorites = false
     
     init(withPresenter presenter: UIViewController) {
         super.init()
@@ -50,7 +53,11 @@ extension CharactersViewModel {
     }
     
     func favorite(character: Character) {
-        CharactersDatabaseService.addFavorite(character: character)
+        isLoading.onNext(true)
+        CharactersDatabaseService.shared.addFavorite(character: character, callback: { [weak self] error in
+            guard error == nil else { return }
+            self?.isLoading.onNext(false)
+        })
     }
 }
 
@@ -114,7 +121,7 @@ extension CharactersViewModel {
     }
     
     func fetchImage(forCharacter character: Character) {
-        modelsToInsert.onNext([])
+        modelsToUpdate.onNext([])
         
         if let thumbnail = character.thumbnail {
             ImageDownloaderService.shared.requestImage(withURL: thumbnail) { [weak self] (error) in
@@ -123,14 +130,23 @@ extension CharactersViewModel {
                 }
                 
                 if let index = self?.index(forCharacter: character) {
-                    self?.modelsToInsert.onNext([index])
+                    self?.modelsToUpdate.onNext([index])
                 }
             }
         }
     }
     
-    func fetchFavorites() -> [Character] {
-        return CharactersDatabaseService.listFavorites()
+    func fetchFavorites() {
+        if !didFetchFavorites {
+            didFetchFavorites = true
+            datasource.onNext(CharactersDatabaseService.shared.listFavorites())
+            
+            CharactersDatabaseService.shared.subscribeToChanges { [weak self] (changes) in
+                self?.datasource.onNext(changes)
+            }
+            
+            isLoading.onNext(false)
+        }
     }
 }
 
@@ -154,7 +170,7 @@ extension CharactersViewModel {
     }
     
     private func parse(_ values: [CharacterResponse]) -> [Character] {
-        let favorites = CharactersDatabaseService.listFavorites()
+        let favorites = CharactersDatabaseService.shared.listFavorites()
         
         return values.map { (response) -> Character in
             let character = Character()

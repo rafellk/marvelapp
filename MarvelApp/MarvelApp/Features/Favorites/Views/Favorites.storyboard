@@ -52,7 +52,7 @@
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="collectionView" destination="3oo-le-Fac" id="agz-Fz-WJZ"/>
-                        <outlet property="emptyLabel" destination="RQa-RK-Mka" id="YhW-0H-zEi"/>
+                        <outlet property="emptyListLabel" destination="RQa-RK-Mka" id="fCp-cs-Gqn"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hYF-VR-wz0" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

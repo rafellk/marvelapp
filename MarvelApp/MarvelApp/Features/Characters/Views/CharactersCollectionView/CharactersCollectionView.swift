@@ -42,7 +42,7 @@ class CharactersCollectionView: UICollectionView {
             // todo: remove this from here
             didReachTheEnd = false
             
-            if pathsToInsert != nil {
+            if pathsToInsert != nil && isInfiniteScrollActivated {
                 insertMoreItems()
             } else {
                 DispatchQueue.main.async { [weak self] in

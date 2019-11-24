@@ -8,9 +8,21 @@
 
 import UIKit
 
-class FavoritesViewController: UIViewController {
+class FavoritesViewController: BaseCharactersViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        configureNavigationItem(withTitle: "Favorites")
+        collectionView.isInfiniteScrollActivated = false
     }
+}
+
+// Data handler extension
+extension FavoritesViewController {
+    
+    override func fetchData() {
+        viewModel?.fetchFavorites()
+    }
+    
+    override func fetchMoreData() {}
 }
