@@ -31,7 +31,6 @@ class BaseCharactersViewController: UIViewController {
     
     func configureNavigationItem(withTitle title: String) {
         navigationItem.title = title
-        navigationController?.navigationBar.prefersLargeTitles = true
     }
     
     private func configureLoadingView() {

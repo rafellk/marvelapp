@@ -17,6 +17,11 @@ class CharactersViewController: BaseCharactersViewController {
         configureNavigationItem(withTitle: "Characters")
         configureSearchBar()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.navigationBar.prefersLargeTitles = true
+    }
 }
 
 // View Model configuration

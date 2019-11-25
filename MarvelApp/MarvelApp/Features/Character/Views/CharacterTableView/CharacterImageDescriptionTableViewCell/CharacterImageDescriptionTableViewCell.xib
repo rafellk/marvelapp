@@ -8,21 +8,21 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="620" id="A56-ZO-Nl5" customClass="CharacterImageDescriptionTableViewCell" customModule="MarvelApp" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="414" height="620"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="597" id="A56-ZO-Nl5" customClass="CharacterImageDescriptionTableViewCell" customModule="MarvelApp" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="597"/>
             <autoresizingMask key="autoresizingMask"/>
-            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="A56-ZO-Nl5" id="ucy-fv-7eI" customClass="CharacterImageDescriptionTableViewCell" customModule="MarvelApp" customModuleProvider="target">
-                <rect key="frame" x="0.0" y="0.0" width="414" height="620"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="A56-ZO-Nl5" id="ucy-fv-7eI">
+                <rect key="frame" x="0.0" y="0.0" width="414" height="597"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ft3-Wt-9oC">
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="marvel_icon" translatesAutoresizingMaskIntoConstraints="NO" id="ft3-Wt-9oC" customClass="LoadingImageView" customModule="MarvelApp" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="414"/>
                         <constraints>
                             <constraint firstAttribute="width" secondItem="ft3-Wt-9oC" secondAttribute="height" multiplier="1:1" id="M7Z-D0-Um3"/>
                         </constraints>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="asdfasdf" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QQI-56-Xve">
-                        <rect key="frame" x="16" y="430" width="382" height="174"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="asdfasdf" textAlignment="justified" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QQI-56-Xve">
+                        <rect key="frame" x="16" y="422" width="382" height="159"/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -34,15 +34,18 @@
                     <constraint firstAttribute="trailing" secondItem="QQI-56-Xve" secondAttribute="trailing" constant="16" id="KJT-bp-rfu"/>
                     <constraint firstItem="ft3-Wt-9oC" firstAttribute="leading" secondItem="ucy-fv-7eI" secondAttribute="leading" id="MoK-4n-Dzz"/>
                     <constraint firstItem="ft3-Wt-9oC" firstAttribute="top" secondItem="ucy-fv-7eI" secondAttribute="top" id="P0n-dd-EpE"/>
-                    <constraint firstItem="QQI-56-Xve" firstAttribute="top" secondItem="ft3-Wt-9oC" secondAttribute="bottom" constant="16" id="hne-Gi-rVv"/>
+                    <constraint firstItem="QQI-56-Xve" firstAttribute="top" secondItem="ft3-Wt-9oC" secondAttribute="bottom" constant="8" id="hne-Gi-rVv"/>
                     <constraint firstItem="QQI-56-Xve" firstAttribute="leading" secondItem="ucy-fv-7eI" secondAttribute="leading" constant="16" id="wqd-Eo-TCp"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
-                <outlet property="charactersImageView" destination="ft3-Wt-9oC" id="V8m-GW-GMb"/>
+                <outlet property="charactersImageView" destination="ft3-Wt-9oC" id="Dzn-2L-UU8"/>
                 <outlet property="descriptionLabel" destination="QQI-56-Xve" id="ro7-ER-dr3"/>
             </connections>
-            <point key="canvasLocation" x="78.260869565217391" y="95.089285714285708"/>
+            <point key="canvasLocation" x="78.260869565217391" y="87.388392857142847"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="marvel_icon" width="558" height="550"/>
+    </resources>
 </document>

@@ -8,10 +8,14 @@
 
 import UIKit
 
+protocol CharacterViewDelegate {
+    func needsImageFetchRequest(forCharacter character: Character)
+}
+
 class CharacterImageDescriptionTableViewCell: UITableViewCell, CharacterTableViewCellProtocol {
     
     // IBOutlets variables
-    @IBOutlet weak var charactersImageView: UIImageView!
+    @IBOutlet weak var charactersImageView: LoadingImageView!
     @IBOutlet weak var descriptionLabel: UILabel!
     
     // CharacterTableViewCellProtocol variables
@@ -21,22 +25,40 @@ class CharacterImageDescriptionTableViewCell: UITableViewCell, CharacterTableVie
         }
     }
     
+    /**
+     User interaction delegate variable
+     */
+    var delegate: CharacterViewDelegate?
+    
     override class func awakeFromNib() {
         super.awakeFromNib()
     }
     
     private func updateUI() {
-        // todo: do stuff here
+        if let model = model {
+            descriptionLabel.text = model.character.characterDescription
+            
+            if let thumbnail = model.character.thumbnail, let image = ImageDownloaderService.shared.cachedImage(withURL: thumbnail) {
+                charactersImageView.configureImageState(withImage: image)
+            } else {
+                charactersImageView.configureLoadingState()
+                delegate?.needsImageFetchRequest(forCharacter: model.character)
+            }
+        }
     }
     
     static func heightFor(character: Character, andFrame frame: CGRect) -> CGFloat {
         var height: CGFloat = 0
+        
         let frameWidth = frame.size.width
-        let padding: CGFloat = 16.0
+        let padding: CGFloat = 8.0
         
         height += frameWidth
-        height += padding * 2 // padding
-        height += character.description.height(withConstrainedWidth: frameWidth - (padding * 2))
+        height += padding * 3 // padding
+        
+        if let description = character.characterDescription {
+            height += description.height(withConstrainedWidth: frameWidth - (padding * 4))
+        }
         
         return height
     }

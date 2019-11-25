@@ -15,6 +15,11 @@ class FavoritesViewController: BaseCharactersViewController {
         configureNavigationItem(withTitle: "Favorites")
         collectionView.isInfiniteScrollActivated = false
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.navigationBar.prefersLargeTitles = true
+    }
 }
 
 // Data handler extension

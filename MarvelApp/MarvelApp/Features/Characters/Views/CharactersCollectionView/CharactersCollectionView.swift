@@ -183,7 +183,7 @@ extension CharactersCollectionView: UICollectionViewDelegate {
 }
 
 // CharactersCollectionViewCellDelegate extension
-extension CharactersCollectionView: CharactersCollectionViewCellDelegate {
+extension CharactersCollectionView: CharactersViewCellDelegate {
     
     func didFavorite(character: Character) {
         charactersCollectionViewDelegate?.didFavorite(character: character)

@@ -10,6 +10,8 @@ import UIKit
 
 protocol CharacterTableViewCellProtocol: UITableViewCell {
     var model: CharacterTableViewModel? { get set }
+    var delegate: CharacterViewDelegate? { get set }
+
     static func heightFor(character: Character, andFrame frame: CGRect) -> CGFloat
 }
 
@@ -23,7 +25,16 @@ struct CharacterTableViewModel {
 class CharacterTableView: UITableView {
     
     private var datasource: [CharacterTableViewModel] = []
-    var model: Character?
+    var model: Character? {
+        didSet {
+            if model != nil {
+                configureDatasource()
+                reloadData()
+            }
+        }
+    }
+    
+    var characterDelegate: CharacterViewDelegate?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -31,7 +42,13 @@ class CharacterTableView: UITableView {
         delegate = self
         dataSource = self
         
-        configureDatasource()
+        registerCells()
+    }
+    
+    private func registerCells() {
+        register(UINib(nibName: "CharacterImageDescriptionTableViewCell",
+                       bundle: nil),
+                 forCellReuseIdentifier: "CharacterImageDescriptionTableViewCell")
     }
 }
 
@@ -40,12 +57,11 @@ extension CharacterTableView {
     private func configureDatasource() {
         if let model = model {
             datasource = [
-                // todo: do it here
                 CharacterTableViewModel(cellClassName: "CharacterImageDescriptionTableViewCell",
                                         header: "",
                                         height: CharacterImageDescriptionTableViewCell.heightFor(character: model,
                                                                                                  andFrame: frame),
-                                        character: model)
+                                        character: model),
             ]
         }
     }
@@ -70,7 +86,9 @@ extension CharacterTableView: UITableViewDelegate, UITableViewDataSource {
             return UITableViewCell()
         }
         
+        castedCell.delegate = self
         castedCell.model = model
+        
         return castedCell
     }
     
@@ -80,5 +98,12 @@ extension CharacterTableView: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return datasource[indexPath.section].height
+    }
+}
+
+extension CharacterTableView: CharacterViewDelegate {
+    
+    func needsImageFetchRequest(forCharacter character: Character) {
+        characterDelegate?.needsImageFetchRequest(forCharacter: character)
     }
 }

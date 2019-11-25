@@ -10,13 +10,15 @@ import UIKit
 
 class Router {
     
-    class func toCharacterViewController(fromNavigationController navigationController: UINavigationController) {
-        push(fromNavigationController: navigationController, toStoryboard: "Character")
+    class func toCharacterViewController(fromNavigationController navigationController: UINavigationController, withModel model: Character) {
+        if let viewController: CharacterViewController = getViewController(fromStoryboardName: "Character") {
+            viewController.model = model
+            navigationController.pushViewController(viewController, animated: true)            
+        }
     }
     
-    // todo: create build script that loads all storyboards and creates an enumeration
-    private class func push(fromNavigationController navigationController: UINavigationController, toStoryboard storyboardName: String, withWiewControllerID id: String? = nil) {
-        var nextViewController: UIViewController!
+    private class func getViewController<T>(fromStoryboardName storyboardName: String, andViewControllerID id: String? = nil) -> T? where T: UIViewController {
+        var nextViewController: T?
         let storyboard = UIStoryboard(name: storyboardName, bundle: nil)
         
         if let id = id {
@@ -25,6 +27,6 @@ class Router {
             nextViewController = storyboard.instantiateInitialViewController()
         }
         
-        navigationController.pushViewController(nextViewController, animated: true)
+        return nextViewController
     }
 }

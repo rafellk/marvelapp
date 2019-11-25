@@ -33,12 +33,7 @@ class CharactersViewModel: BaseViewModel {
         return modelsToUpdate.asObserver()
     }
     
-    private var didFetchFavorites = false
-    
-    init(withPresenter presenter: UIViewController) {
-        super.init()
-        viewController = presenter
-    }
+    private var didFetchFavorites = false    
 }
 
 // User actions
@@ -63,7 +58,7 @@ extension CharactersViewModel {
     
     func select(item: Character) {
         if let navigationController = viewController?.navigationController {
-            Router.toCharacterViewController(fromNavigationController: navigationController)
+            Router.toCharacterViewController(fromNavigationController: navigationController, withModel: item)
         }
     }
 }

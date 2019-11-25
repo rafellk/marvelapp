@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol CharactersCollectionViewCellDelegate: NSObjectProtocol {
+protocol CharactersViewCellDelegate: NSObjectProtocol {
     func didFavorite(character: Character)
     func needsImageFetchRequest(forCharacter character: Character)
 }
@@ -37,7 +37,7 @@ class CharactersCollectionViewCell: UICollectionViewCell {
     /**
      User interaction delegate variable
      */
-    weak var delegate: CharactersCollectionViewCellDelegate?
+    weak var delegate: CharactersViewCellDelegate?
     
     override func awakeFromNib() {
         super.awakeFromNib()

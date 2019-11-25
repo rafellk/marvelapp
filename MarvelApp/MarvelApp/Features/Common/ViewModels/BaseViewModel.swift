@@ -12,6 +12,11 @@ class BaseViewModel: NSObject {
     
     // Presenter view controller
     weak var viewController: UIViewController?
+    
+    init(withPresenter presenter: UIViewController) {
+        super.init()
+        viewController = presenter
+    }
 
     func defaultErrorHandler(withError error: MarvelError, andRetrySelector selector: Selector? = nil) {
         presentErrorAlert(withMessage: error.localizedDescription, andRetrySelector: selector)
