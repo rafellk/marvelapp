@@ -29,7 +29,29 @@ class CharacterViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        configureNavigationItem()
+    }
+    
+    private func configureNavigationItem() {
         navigationController?.navigationBar.prefersLargeTitles = false
+        
+        if let model = model {
+            navigationItem.title = model.name
+            navigationItem.rightBarButtonItem = UIBarButtonItem(image: model.isFavorite.boolValue ? UIImage(systemName: "star.fill") : UIImage(systemName: "star"), style: UIBarButtonItem.Style.plain, target: self, action: #selector(favoriteButtonPressed))
+        }
+    }
+}
+
+// User actions
+extension CharacterViewController {
+    
+    @objc
+    func favoriteButtonPressed() {
+        if let model = model {
+            let isFavorite = NSNumber(booleanLiteral: !model.isFavorite.boolValue)
+            navigationItem.rightBarButtonItem?.image = isFavorite.boolValue ? UIImage(systemName: "star.fill") : UIImage(systemName: "star")
+            viewModel?.favorite(character: model)
+        }
     }
 }
 
@@ -37,9 +59,6 @@ extension CharacterViewController {
     
     private func configureViewModel() {
         viewModel = CharacterViewModel(withPresenter: self, model: model)
-        let _ = viewModel?.isLoadingObservable.subscribe(onNext: { (value) in
-            // todo: handle progress here
-        })
         
         let _ = viewModel?.modelsObservable.subscribe(onNext: { [weak self] (value) in
             switch value.mode {

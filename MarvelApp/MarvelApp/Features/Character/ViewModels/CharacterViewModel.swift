@@ -23,11 +23,6 @@ struct CharacterViewModelViewer {
 class CharacterViewModel: BaseViewModel {
     
     // Observable variables
-    private var isLoading = BehaviorSubject(value: false)
-    var isLoadingObservable: Observable<Bool> {
-        return isLoading.asObserver()
-    }
-
     private var models = BehaviorSubject(value: CharacterViewModelViewer(indexes: [], mode: .description))
     var modelsObservable: Observable<CharacterViewModelViewer> {
         return models.asObserver()
@@ -68,9 +63,8 @@ extension CharacterViewModel {
         for index in 0..<character.comicIds.count {
             let object = character.comicIds.object(at: index)
             group.enter()
+            
             CharactersService.fetchComic(withID: "\(object.id.intValue)") { (response, error) in
-                self.isLoading.onNext(false)
-                
                 if let caughtError = error {
                     self.defaultErrorHandler(withError: caughtError)
                     return
@@ -99,9 +93,8 @@ extension CharacterViewModel {
         for index in 0..<character.serieIds.count {
             let object = character.serieIds.object(at: index)
             group.enter()
+            
             CharactersService.fetchComic(withID: "\(object.id.intValue)") { (response, error) in
-                self.isLoading.onNext(false)
-                
                 if let caughtError = error {
                     self.defaultErrorHandler(withError: caughtError)
                     return
@@ -126,5 +119,11 @@ extension CharacterViewModel {
                                                              mode: .series))
             }
         }
+    }
+    
+    func favorite(character: Character) {
+        CharactersDatabaseService.shared.addFavorite(character: character, callback: { error in
+            guard error == nil else { return }
+        })
     }
 }

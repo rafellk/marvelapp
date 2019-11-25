@@ -47,7 +47,6 @@ extension BaseCharactersViewController {
         viewModel = CharactersViewModel(withPresenter: self)
         
         let _ = viewModel?.datasourceObservable.subscribe(onNext: { [weak self] (datasource) in
-            print("rlmg datasource: \(datasource.count)")
             self?.collectionView.isFiltering = false
             self?.update(datasource: datasource)
         })
@@ -148,5 +147,13 @@ extension BaseCharactersViewController {
             self?.loadingView?.layer.opacity = 0
             self?.loadingView?.removeFromSuperview()
         }
+    }
+}
+
+extension BaseCharactersViewController {
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        navigationItem.title = ""
+        super.prepare(for: segue, sender: sender)
     }
 }
