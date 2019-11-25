@@ -209,6 +209,14 @@ extension CharactersViewModel {
             character.thumbnail = "\(response.thumbnail.path).\(response.thumbnail.extensionString)"
             character.characterDescription = response.description
             
+            response.comics.items.forEach { (comic) in
+                if let id = comic.resourceURI.split(separator: "/").last, let intID = Int(String(id)) {
+                    let comicID = ResourceID()
+                    comicID.id = NSNumber(integerLiteral: intID)
+                    character.comicIds.add(comicID)
+                }
+            }
+            
             character.isFavorite = NSNumber(booleanLiteral: checkFavorite(forValue: response, inFavorites: favorites))
             return character
         }

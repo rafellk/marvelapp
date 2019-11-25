@@ -10,6 +10,9 @@ import UIKit
 
 protocol CharacterViewDelegate {
     func needsImageFetchRequest(forCharacter character: Character)
+    func needsImageFetchRequest(forModel model: HorizontalCollectionTableViewCellModel)
+    func fetchComics()
+    func fetchSeries()
 }
 
 class CharacterImageDescriptionTableViewCell: UITableViewCell, CharacterTableViewCellProtocol {
@@ -30,8 +33,9 @@ class CharacterImageDescriptionTableViewCell: UITableViewCell, CharacterTableVie
      */
     var delegate: CharacterViewDelegate?
     
-    override class func awakeFromNib() {
+    override func awakeFromNib() {
         super.awakeFromNib()
+        selectionStyle = .none
     }
     
     private func updateUI() {

@@ -13,6 +13,7 @@ struct CharacterResponse: Codable {
     var name: String
     var description: String
     var thumbnail: Thumbnail
+    var comics: ComicList
 }
 
 struct Thumbnail: Codable {
@@ -24,13 +25,11 @@ struct Thumbnail: Codable {
     }
 }
 
-//struct ComicList: Codable {
-//
-//    var items: [ComicSummary]
-//}
-//
-//struct ComicSummary: Codable {
-//
-//    var resourceURI: String
-//    var name: String
-//}
+struct ComicList: Codable {
+    var items: [ComicSummary]
+}
+
+struct ComicSummary: Codable {
+    var resourceURI: String
+    var name: String
+}

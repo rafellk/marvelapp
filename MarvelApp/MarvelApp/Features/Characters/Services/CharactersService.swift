@@ -37,6 +37,7 @@ enum MarvelError: Error {
 class CharactersService: BaseService {
     
     typealias CharactersResponseCallback = (CharactersResultsResponse?, MarvelError?) -> Void
+    typealias ComicResponseCallback = (ComicResultsResponse?, MarvelError?) -> Void
     
     static func fetchCharacters(offset: Int = 0, callback: (CharactersResponseCallback)? = nil) {
         Alamofire.request(url(forEndpoint: "/v1/public/characters", withQuery: "orderBy=name&offset=\(offset)&limit=20")).responseJSON { response in
@@ -47,6 +48,18 @@ class CharactersService: BaseService {
     static func fetchCharacters(byName name: String, callback: (CharactersResponseCallback)? = nil) {
         let filteredName = name.replacingOccurrences(of: " ", with: "-").lowercased()
         Alamofire.request(url(forEndpoint: "/v1/public/characters", withQuery: "orderBy=name&name=\(filteredName)")).responseJSON { response in
+            handle(response: response, callback: callback)
+        }
+    }
+    
+    static func fetchComic(withID id: String, callback: (ComicResponseCallback)? = nil) {
+        Alamofire.request(url(forEndpoint: "/v1/public/comics/\(id)")).responseJSON { response in
+            handle(response: response, callback: callback)
+        }
+    }
+
+    static func fetchSerie(withID id: String, callback: (ComicResponseCallback)? = nil) {
+        Alamofire.request(url(forEndpoint: "/v1/public/series/\(id)")).responseJSON { response in
             handle(response: response, callback: callback)
         }
     }

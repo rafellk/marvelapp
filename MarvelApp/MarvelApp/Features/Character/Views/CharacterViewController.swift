@@ -43,9 +43,9 @@ extension CharacterViewController {
         
         let _ = viewModel?.modelsObservable.subscribe(onNext: { [weak self] (value) in
             switch value.mode {
-            case .description:
+            case .description, .comics, .series:
                 if !value.indexes.isEmpty {
-                    self?.tableView.reloadRows(at: value.indexes, with: .automatic)                    
+                    self?.tableView.reloadRows(at: value.indexes, with: .automatic)
                 }
                 break
             default:
@@ -56,6 +56,22 @@ extension CharacterViewController {
 }
 
 extension CharacterViewController: CharacterViewDelegate {
+    
+    func needsImageFetchRequest(forModel model: HorizontalCollectionTableViewCellModel) {
+        viewModel?.fetch(forModel: model)
+    }
+    
+    func fetchComics() {
+        if let model = model {
+            viewModel?.fetchComics(forCharacter: model)
+        }
+    }
+    
+    func fetchSeries() {
+        if let model = model {
+            viewModel?.fetchSeries(forCharacter: model)
+        }
+    }
     
     func needsImageFetchRequest(forCharacter character: Character) {
         viewModel?.fetchThumbnail(character: character)

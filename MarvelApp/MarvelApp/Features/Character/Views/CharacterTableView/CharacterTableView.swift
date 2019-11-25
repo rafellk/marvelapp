@@ -15,11 +15,16 @@ protocol CharacterTableViewCellProtocol: UITableViewCell {
     static func heightFor(character: Character, andFrame frame: CGRect) -> CGFloat
 }
 
+enum CharacterTableViewModelMode {
+    case none, comic, serie
+}
+
 struct CharacterTableViewModel {
     var cellClassName: String
     var header: String
     var height: CGFloat
     var character: Character
+    var mode: CharacterTableViewModelMode
 }
 
 class CharacterTableView: UITableView {
@@ -43,12 +48,16 @@ class CharacterTableView: UITableView {
         dataSource = self
         
         registerCells()
+        separatorStyle = .none
     }
     
     private func registerCells() {
         register(UINib(nibName: "CharacterImageDescriptionTableViewCell",
                        bundle: nil),
                  forCellReuseIdentifier: "CharacterImageDescriptionTableViewCell")
+        register(UINib(nibName: "HorizontalCollectionTableViewCell",
+                       bundle: nil),
+                 forCellReuseIdentifier: "HorizontalCollectionTableViewCell")
     }
 }
 
@@ -61,7 +70,21 @@ extension CharacterTableView {
                                         header: "",
                                         height: CharacterImageDescriptionTableViewCell.heightFor(character: model,
                                                                                                  andFrame: frame),
-                                        character: model),
+                                        character: model,
+                                        mode: .none),
+                CharacterTableViewModel(cellClassName: "HorizontalCollectionTableViewCell",
+                                        header: "Comics",
+                                        height: HorizontalCollectionTableViewCell.heightFor(character: model,
+                                                                                            andFrame: frame),
+                                        character: model,
+                                        mode: .comic),
+                CharacterTableViewModel(cellClassName: "HorizontalCollectionTableViewCell",
+                                        header: "Series",
+                                        height: HorizontalCollectionTableViewCell.heightFor(character: model,
+                                                                                            andFrame: frame),
+                                        character: model,
+                                        mode: .serie),
+
             ]
         }
     }
@@ -93,15 +116,44 @@ extension CharacterTableView: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return datasource[section].header
+        switch datasource[section].mode {
+        case .none:
+            return datasource[section].header
+        case .serie:
+            return datasource[section].character.serieIds.count > 0 ? datasource[section].header :
+            ""
+        case .comic:
+            return datasource[section].character.comicIds.count > 0 ? datasource[section].header :
+            ""
+        }
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return datasource[indexPath.section].height
+        switch datasource[indexPath.section].mode {
+        case .none:
+            return datasource[indexPath.section].height
+        case .serie:
+            return datasource[indexPath.section].character.serieIds.count > 0 ? datasource[indexPath.section].height :
+            0
+        case .comic:
+            return datasource[indexPath.section].character.comicIds.count > 0 ? datasource[indexPath.section].height :
+            0
+        }
     }
 }
 
 extension CharacterTableView: CharacterViewDelegate {
+    func needsImageFetchRequest(forModel model: HorizontalCollectionTableViewCellModel) {
+        characterDelegate?.needsImageFetchRequest(forModel: model)
+    }
+    
+    func fetchComics() {
+        characterDelegate?.fetchComics()
+    }
+    
+    func fetchSeries() {
+        characterDelegate?.fetchSeries()
+    }
     
     func needsImageFetchRequest(forCharacter character: Character) {
         characterDelegate?.needsImageFetchRequest(forCharacter: character)
