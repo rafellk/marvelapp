@@ -143,6 +143,10 @@ extension CharacterTableView: UITableViewDelegate, UITableViewDataSource {
 }
 
 extension CharacterTableView: CharacterViewDelegate {
+    func viewImage(_ image: UIImage) {
+        characterDelegate?.viewImage(image)
+    }
+    
     func needsImageFetchRequest(forModel model: HorizontalCollectionTableViewCellModel) {
         characterDelegate?.needsImageFetchRequest(forModel: model)
     }

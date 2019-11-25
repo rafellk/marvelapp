@@ -2,6 +2,7 @@ PODS:
   - Alamofire (4.9.1)
   - AlamofireImage (3.6.0):
     - Alamofire (~> 4.9)
+  - GSImageViewerController (1.6.2)
   - Realm (3.20.0):
     - Realm/Headers (= 3.20.0)
   - Realm/Headers (3.20.0)
@@ -12,6 +13,7 @@ PODS:
 DEPENDENCIES:
   - Alamofire (~> 4.9)
   - AlamofireImage (~> 3.5)
+  - GSImageViewerController
   - RealmSwift
   - RxSwift (~> 5)
 
@@ -19,6 +21,7 @@ SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
     - Alamofire
     - AlamofireImage
+    - GSImageViewerController
     - Realm
     - RealmSwift
   trunk:
@@ -27,10 +30,11 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
   AlamofireImage: be9963c6582d68b39e89191f64c82a7d7bf40fdd
+  GSImageViewerController: 3b8fb7d2ab7596152329d7910eeb1905b2284cb9
   Realm: 8b2ca5bc6479a91f379b6b42b5922e396cd5ba5a
   RealmSwift: 1949ef26a279e1845bd51d591b9103adfcd121df
   RxSwift: e2dc62b366a3adf6a0be44ba9f405efd4c94e0c4
 
-PODFILE CHECKSUM: 33ad42c67ca4850646aaed69360488167af165e1
+PODFILE CHECKSUM: b5a8b4e40ebc12908739068aa7a4cbdfc9ea4e32
 
 COCOAPODS: 1.8.4

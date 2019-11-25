@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import GSImageViewerController
 
 class CharacterViewController: UIViewController {
 
@@ -67,14 +68,19 @@ extension CharacterViewController {
                     self?.tableView.reloadRows(at: value.indexes, with: .automatic)
                 }
                 break
-            default:
-                break
             }
         })
     }
 }
 
 extension CharacterViewController: CharacterViewDelegate {
+    
+    func viewImage(_ image: UIImage) {
+        let imageInfo = GSImageInfo(image: image, imageMode: .aspectFit, imageHD: nil)
+        let transitionInfo = GSTransitionInfo(fromView: view)
+        let imageViewer = GSImageViewerController(imageInfo: imageInfo, transitionInfo: transitionInfo)
+        present(imageViewer, animated: true, completion: nil)
+    }
     
     func needsImageFetchRequest(forModel model: HorizontalCollectionTableViewCellModel) {
         viewModel?.fetch(forModel: model)

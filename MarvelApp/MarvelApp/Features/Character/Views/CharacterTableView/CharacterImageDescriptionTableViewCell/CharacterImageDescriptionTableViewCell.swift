@@ -8,11 +8,12 @@
 
 import UIKit
 
-protocol CharacterViewDelegate {
+protocol CharacterViewDelegate: NSObjectProtocol {
     func needsImageFetchRequest(forCharacter character: Character)
     func needsImageFetchRequest(forModel model: HorizontalCollectionTableViewCellModel)
     func fetchComics()
     func fetchSeries()
+    func viewImage(_ image: UIImage)
 }
 
 class CharacterImageDescriptionTableViewCell: UITableViewCell, CharacterTableViewCellProtocol {
@@ -36,6 +37,21 @@ class CharacterImageDescriptionTableViewCell: UITableViewCell, CharacterTableVie
     override func awakeFromNib() {
         super.awakeFromNib()
         selectionStyle = .none
+        configureGesture()
+    }
+    
+    private func configureGesture() {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(imageViewTapped))
+        tap.numberOfTapsRequired = 1
+        charactersImageView.addGestureRecognizer(tap)
+        charactersImageView.isUserInteractionEnabled = true
+    }
+    
+    @objc
+    func imageViewTapped() {
+        if let image = charactersImageView.image {
+            delegate?.viewImage(image)
+        }
     }
     
     private func updateUI() {
